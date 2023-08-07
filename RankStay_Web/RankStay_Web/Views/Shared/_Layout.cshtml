@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿﻿@{
+    int UserRole = Convert.ToInt32(Context.Session.GetString("UserRole"));
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -67,17 +71,20 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
                         @Html.ActionLink("Inicio", "Index", "Home", null, new { @class="nav-item nav-link active"})
-                        @Html.ActionLink("Nosotros", "#", "home", null, new { @class="nav-item nav-link"})
-                        @Html.ActionLink("Servicios", "#", "home", null, new { @class="nav-item nav-link"})
-                        @Html.ActionLink("Proyectos", "#", "home", null, new { @class="nav-item nav-link"})
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
-                            <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
-                                @Html.ActionLink("Usuarios", "Users", "User", null, new { @class="dropdown-item"})
-                                @Html.ActionLink("Provincias", "Provinces", "Province", null, new { @class="dropdown-item"})
-                                @Html.ActionLink("Reseñas", "Reviews", "Review", null, new { @class="dropdown-item"})
+                        @Html.ActionLink("Nosotros", "About", "Nav", null, new { @class="nav-item nav-link"})
+                        @Html.ActionLink("Servicios", "Services", "Nav", null, new { @class="nav-item nav-link"})
+                        @Html.ActionLink("Proyectos", "Projects", "Nav", null, new { @class="nav-item nav-link"})
+                        @if (UserRole == 1)
+                        {
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
+                                <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
+                                    @Html.ActionLink("Usuarios", "Users", "User", null, new { @class="dropdown-item"})
+                                    @Html.ActionLink("Provincias", "Provinces", "Province", null, new { @class="dropdown-item"})
+                                    @Html.ActionLink("Reseñas", "Reviews", "Review", null, new { @class="dropdown-item"})
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     <div class="ms-auto d-none d-lg-block">
                         <a href="@Url.Action("login", "auth", null)" class="btn btn-primary rounded-pill py-2 px-3">

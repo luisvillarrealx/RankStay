@@ -11,14 +11,14 @@ namespace RankStay_Web.Controllers
         readonly AuthModel authModel = new();
 
         [HttpGet]
-        public IActionResult login()
+        public IActionResult Login()
         {
             return View();
         }
 
 
         [HttpPost]
-        public IActionResult login(UserObj userObj)
+        public IActionResult Login(UserObj userObj)
         {
             try
             {
@@ -29,6 +29,11 @@ namespace RankStay_Web.Controllers
                 var result = authModel.login(userObj);
                 if (result != null)
                 {
+                    HttpContext.Session.SetString("UserEmail", result.UserEmail);
+                    HttpContext.Session.SetString("UserName", result.UserName);
+                    HttpContext.Session.SetString("UserLastName1", result.UserLastName1);
+                    HttpContext.Session.SetString("UserLastName2", result.UserLastName2);
+                    HttpContext.Session.SetString("UserRole", result.UserRole.ToString());
                     return RedirectToAction("index", "home");
                 }
 
@@ -40,19 +45,19 @@ namespace RankStay_Web.Controllers
             }
             catch
             {
-                return RedirectToAction(nameof(login));
+                return RedirectToAction(nameof(Login));
             }
         }
 
 
         [HttpGet]
-        public IActionResult signup()
+        public IActionResult Signup()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult signup(UserObj userObj)
+        public IActionResult Signup(UserObj userObj)
         {
             userObj.UserName = "luis";
             userObj.UserLastName1 = "Villarreal";
@@ -69,7 +74,7 @@ namespace RankStay_Web.Controllers
             }
         }
 
-        public IActionResult forgot()
+        public IActionResult Forgot()
         {
             //HttpContext.Session.Clear();
             return View();
