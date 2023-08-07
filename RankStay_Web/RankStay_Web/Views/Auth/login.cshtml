@@ -1,0 +1,52 @@
+﻿@model RankStay_Web.Entities.UserObj
+
+@{
+    Layout = "_LayoutAuth";
+}
+<div class="container">
+        <div class="row px-3">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+            <div class="img-left d-none d-md-flex"></div>
+                <div class="card-body">
+                    <h4 class="title text-center mt-4">
+                        Iniciar sesión
+                    </h4>
+                @using (Html.BeginForm("login", "auth", FormMethod.Post, new {@class="form-box px-3"}))
+                        {
+                        <div class="form-input">
+                            <span><i class="fa fa-envelope-o"></i></span>
+                        @Html.TextBoxFor(m => m.UserEmail, new
+                    {
+                    @class = "form-control",
+                    @placeholder = "Correo electrónico",
+                    @required = true
+                    })
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-key"></i></span>
+                        @Html.TextBoxFor(m => m.UserPassword , new
+                    {
+                    @class = "form-control",
+                    @required = true,
+                    @placeholder = "Contraseña",
+                    @type = "Password"
+                    })
+                        </div>
+                        <div class="mb-4">
+                            <button type="submit" class="btn btn-block text-uppercase">
+                                Iniciar sesión
+                            </button>
+                        </div>
+                        <div class="text-right mb-3">
+                        @Html.ActionLink("Olvidé mi contraseña", "forgot", "auth", null, new { @class="forget-link"})
+                        </div>
+                        <hr class="my-4">
+                    <div class="text-center mb-2">
+                        Aún no tienes cuenta?
+                        @Html.ActionLink("Regístrate aquí", "signup", "auth", null, new { @class="register-link"})
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>

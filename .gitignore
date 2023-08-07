@@ -1,0 +1,9 @@
+.vs/
+RankStay_Web/.vs/
+RankStay_API/.vs/
+
+RankStay_Web/RankStay_Web/bin/
+RankStay_Web/RankStay_Web/obj/
+
+RankStay_API/RankStay_API/bin/
+RankStay_API/RankStay_API/obj/

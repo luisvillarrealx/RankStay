@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_LayoutAuth";
+}
+<div class="container">
+    <div class="row px-3">
+        <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+            <div class="img-left d-none d-md-flex"></div>
+
+            <div class="card-body">
+                <h4 class="title text-center mt-4">
+                    Recupera tu cuenta
+                </h4>
+                <form class="form-box px-3">
+                    <div class="form-input">
+                        <span><i class="fa fa-envelope-o"></i></span>
+                        <input type="email" name="" placeholder="Correo electrónico" tabindex="10" required>
+                    </div>
+                    <div class="mb-4">
+                        <button type="submit" class="btn btn-block text-uppercase">
+                            Recuperar Contraseña
+                        </button>
+                    </div>
+                    <hr class="my-4">
+                    <div class="text-center mb-2">
+                        Ya tienes cuenta?
+                        @Html.ActionLink("Inicia sesión", "login", "auth", null, new { @class="register-link"})
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

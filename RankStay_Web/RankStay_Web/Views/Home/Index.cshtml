@@ -1,0 +1,38 @@
+﻿@model List<RankStay_Web.Entities.ProvinceObj>
+
+<!-- Spinner Start -->
+<div id="spinner"
+     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+</div>
+<!-- Spinner End -->
+@await Html.PartialAsync("_Part_Carousel")
+@await Html.PartialAsync("_Part_Features")
+<!-- Provinces Start -->
+<div class="container">
+    <div class="">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <a href="@Url.Action("Province","Home", new { ID = item.ProvinceId })">
+                        <div class="card">
+                            <img src="https://spanishpuravida.com/wp-content/uploads/2018/12/alajuela.jpg" class="card-img-top" alt="Image 1">
+                            <div class="card-body">
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProvinceName)</h5>
+                                <p class="card-text">Descripción de la provincia</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Provinces End -->
+@await Html.PartialAsync("_Part_About")
+@await Html.PartialAsync("_Part_Service")
+@await Html.PartialAsync("_Part_Project")
+@await Html.PartialAsync("_Part_Quote")
+@await Html.PartialAsync("_Part_Team")
+@await Html.PartialAsync("_Part_Testimonial")

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<RankStay_Web.Entities.UserObj>
+
+<section class="content mt-5">
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h3 class="card-title">Registro de usuarios</h3>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <div class="pb-2">
+                            <a href="@Url.Action("Register","User")" class="btn btn-primary ml-auto" type="button" value=""><i class="fa-solid fa-plus"></i>Agregar</a>
+                        </div>
+                        <table id="Table" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Primer apellido</th>
+                                    <th>Segundo apellido</th>
+                                    <th>Correo</th>
+                                    <th>Rol</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UserLastName1)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UserLastName2)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UserEmail)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.UserRole)</td>
+                                        <td class="text-center">>></td>
+                                        @*<td class="text-center col-1">
+                                            <a href="@Url.Action("EditUser","User", new { ID = item.userId })" class="btn btn-primary px-2" type="" value="">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </a>
+                                        </td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

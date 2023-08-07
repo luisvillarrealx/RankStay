@@ -1,0 +1,30 @@
+﻿@model List<RankStay_Web.Entities.PropertyObj>
+
+<div class="container-xxl pt-5 mb-5">
+    @if (Model.Any())
+    {
+        <h1>Propiedades registradas en @Html.DisplayFor(model => model.First().ProvinceName)</h1>
+    }
+    else
+    {
+        <h1>No hay propiedades registradas en esta provincia</h1>
+    }
+    <p>Selecciona una propiedad para conocer sus calificaciones</p>
+    @Html.ActionLink("Agregar propiedad", "RegisterProperty", "Property", null, new { @class="btn btn-primary rounded-pill py-3 px-5"})
+
+    <div class="mt-5">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("Property","Property", new { ID = item.PropertyId })">
+                <div class="card flex-row mb-4">
+                    <img class="card-img-left" src="https://holidayhome.stayfritz.com/_published/stayfritz/1047387/274c034d-515b-4a24-a8a0-8d8ecfd1baf4/thumbnail_xs.webp" style="width: 200px; border-radius: 5px 0 0 5px" alt="loft" />
+                    <div class="card-body">
+                    <h4 class="card-title h5 h4-sm mb-3">@Html.DisplayFor(modelItem => item.PropertyName)</h4>
+                        <div class="card-text property-reviews mb-2">★★★☆☆ 3/5</div>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.PropertyDescription)</p>
+                    </div>
+                </div>
+            </a>
+       }
+    </div>
+</div>
