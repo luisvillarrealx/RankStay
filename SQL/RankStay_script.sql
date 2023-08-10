@@ -344,11 +344,21 @@ CREATE OR ALTER PROCEDURE [dbo].[SP_GetReviewsByProperty]
     @ReviewPropertyId INT
 AS
 BEGIN
-    SELECT *
-    FROM REVIEWS
-    WHERE ReviewPropertyId = @ReviewPropertyId;
+    SELECT
+    REVIEWS.ReviewId,
+    REVIEWS.ReviewPropertyId,
+    PROPERTIES.PropertyName AS PropertyName,
+    REVIEWS.ReviewComment,
+	REVIEWS.ReviewStar
+FROM
+    REVIEWS
+INNER JOIN
+    PROPERTIES
+ON
+    REVIEWS.ReviewPropertyId = PROPERTIES.PropertyId
+WHERE
+    REVIEWS.ReviewPropertyId = @ReviewPropertyId;
 END
---EXEC dbo.[SP_GetReviewsByProperty] @PropertyId = 1;
 GO
 
 CREATE OR ALTER PROCEDURE [dbo].[SP_GetPropertiesByProvince]

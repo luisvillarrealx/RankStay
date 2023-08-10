@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using RankStay_Web.Entities;
 using RankStay_Web.Models;
 
@@ -40,6 +39,13 @@ namespace RankStay_Web.Controllers
         {
             return View(reviewModel.GetListReviews());
         }
+
+        //[HttpGet]
+        //public IActionResult Property(int propertyId)
+        //{
+        //    var reviews = reviewModel.GetReviewsByProperty(propertyId);
+        //    return View(reviews);
+        //}
 
         // similar, pero que reciba id
     }

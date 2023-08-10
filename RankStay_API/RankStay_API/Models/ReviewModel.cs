@@ -7,9 +7,16 @@ namespace RankStay_API.Models
 {
     public class ReviewModel
     {
-        public int RegisterReview(ReviewObj reviewObj, IConfiguration stringConnection)
+        private readonly IConfiguration _configuration;
+
+        public ReviewModel(IConfiguration configuration)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            _configuration = configuration;
+        }
+
+        public int RegisterReview(ReviewObj reviewObj)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Execute("SP_RegisterReview",
                     new
@@ -21,11 +28,21 @@ namespace RankStay_API.Models
             }
         }
 
-        public List<ReviewObj> getListReviews(IConfiguration stringConnection)
+        public List<ReviewObj> getListReviews()
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Query<ReviewObj>("SP_GetReviews", commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public List<ReviewObj> GetReviewsByProperty(int propertyId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                //return connection.Query<ReviewObj>("SP_GetReviewsByProperty", propertyId, commandType: CommandType.StoredProcedure).ToList();
+                connection.Open();
+                return connection.Query<ReviewObj>("SP_GetReviewsByProperty", new { ReviewPropertyId = propertyId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

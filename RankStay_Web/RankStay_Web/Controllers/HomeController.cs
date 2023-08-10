@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using RankStay_Web.Entities;
 using RankStay_Web.Models;
 
 namespace RankStay_Web.Controllers

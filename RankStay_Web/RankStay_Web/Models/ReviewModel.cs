@@ -32,6 +32,42 @@ namespace RankStay_Web.Models
             return listReview;
         }
 
+        // get reviews based on property id == filtered reviews for selected property
+        public async Task<List<ReviewObj>> GetReviewsByProperty(int propertyId)
+        {
+            using (var client = new HttpClient())
+            {
+                string urlApi = $"https://localhost:7216/api/Review/getReviewsByProperty/{propertyId}";
+
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(urlApi);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string resultStr = await response.Content.ReadAsStringAsync();
+                        List<ReviewObj> reviews = JsonConvert.DeserializeObject<List<ReviewObj>>(resultStr);
+                        return reviews;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                        // Handle non-success status code if needed.
+                        // For example: Log the error, throw an exception, etc.
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                    // Handle exceptions that occurred during the request.
+                    // For example: Log the error, throw a custom exception, etc.
+                }
+
+                return new List<ReviewObj>(); // Return an empty list on failure.
+            }
+        }
+
+
         public string RegisterReview(ReviewObj reviewObj)
         {
             using (HttpClient access = new HttpClient())
