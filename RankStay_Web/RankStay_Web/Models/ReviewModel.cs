@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RankStay_Web.Entities;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace RankStay_Web.Models
 {
@@ -9,7 +7,6 @@ namespace RankStay_Web.Models
     {
         public string? lblmsj { get; set; }
         public List<ReviewObj> listReview = new();
-        ProvinceObj provinceObj = new();
 
         public List<ReviewObj> GetListReviews()
         {
@@ -37,22 +34,13 @@ namespace RankStay_Web.Models
 
         public string RegisterReview(ReviewObj reviewObj)
         {
-
             using (HttpClient access = new HttpClient())
             {
-
-                //string urlApi = "http://localhost/SERVICE/" + "api/PropertyApi/CreateProperty";
                 string urlApi = "https://localhost:7216/" + "api/Review/RegisterReview";
-
                 JsonContent content = JsonContent.Create(reviewObj);
-
                 HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return "OK";
-                }
-                return string.Empty;
+                return (response.IsSuccessStatusCode) ? "OK" : string.Empty;
             }
         }
     }

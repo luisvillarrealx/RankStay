@@ -7,10 +7,8 @@ namespace RankStay_Web.Controllers
 {
     public class PropertyController : Controller
     {
-        readonly PropertyObj propertyObj = new();
         readonly PropertyModel propertyModel = new();
         readonly ReviewModel reviewModel = new();
-        List<ReviewObj> reviewlist = new List<ReviewObj>();
 
         //[FilterSessionValidation]
         [HttpGet]
@@ -40,8 +38,9 @@ namespace RankStay_Web.Controllers
         [HttpGet]
         public IActionResult Property()
         {
-            reviewlist = reviewModel.GetListReviews();
-            return View(reviewlist);
+            return View(reviewModel.GetListReviews());
         }
+
+        // similar, pero que reciba id
     }
 }

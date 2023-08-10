@@ -10,22 +10,15 @@ namespace RankStay_Web.Models
 
         public List<PropertyObj> listProperty = new();
         string urlGet = "https://localhost:7216/api/Property/GetPropertyById";
-        public string RegisterProperty(PropertyObj propertyObj) {
+        public string RegisterProperty(PropertyObj propertyObj)
+        {
+            using (HttpClient access = new()) {
 
-            using (HttpClient access = new HttpClient()) {
-
-                //string urlApi = "http://localhost/SERVICE/" + "api/PropertyApi/CreateProperty";
                 string urlApi = "https://localhost:7216/" + "api/Property/RegisterProperty";
-
                 JsonContent content = JsonContent.Create(propertyObj);
-
                 HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return "OK";
-                }
-                return string.Empty;
+                return (response.IsSuccessStatusCode) ? "OK" : string.Empty;
             }
         }
 

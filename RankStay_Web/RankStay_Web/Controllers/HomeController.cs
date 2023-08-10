@@ -7,23 +7,18 @@ namespace RankStay_Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ProvinceModel provinceModel = new();
-        List<ProvinceObj> provincelist = new List<ProvinceObj>();
-
         //readonly PropertyObj propertyObj = new();
-        PropertyModel propertyModel = new();
-        List<PropertyObj> propertieslist = new List<PropertyObj>();
+        public ProvinceModel provinceModel = new();
+        readonly PropertyModel propertyModel = new();
 
         public IActionResult Index()
         {
-            provincelist = provinceModel.GetListProvinces().ToList();
-            return View(provincelist);
+            return View(provinceModel.GetListProvinces().ToList());
         }
 
         public IActionResult Province()
         {
-            propertieslist = propertyModel.getListProperties();
-            return View(propertieslist);
+            return View(propertyModel.getListProperties());
         }
 
     }

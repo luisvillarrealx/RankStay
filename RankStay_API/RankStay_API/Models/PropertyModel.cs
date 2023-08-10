@@ -11,8 +11,7 @@ namespace RankStay_API.Models
         {
             using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
             {
-                var data = connection.Query<ProvinceObj>("SELECT * FROM PROVINCES").ToList();
-                return data;
+                return connection.Query<ProvinceObj>("SELECT * FROM PROVINCES").ToList();
             }
         }
 
@@ -33,8 +32,7 @@ namespace RankStay_API.Models
         {
             using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
             {
-                //return connection.Query<PropertyObj>("SELECT * FROM PROPERTIES").ToList();
-                return connection.Query<PropertyObj>("SP_GetAllProperties", commandType: CommandType.StoredProcedure).ToList();
+                return connection.Query<PropertyObj>("SP_GetAllProperties", commandType: CommandType.StoredProcedure).ToList(); // despues de commandtype se pasa parametro de id
             }
         }
 

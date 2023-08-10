@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RankStay_Web.Entities;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace RankStay_Web.Models
 {
@@ -9,7 +7,6 @@ namespace RankStay_Web.Models
     {
         public string? lblmsj { get; set; }
         public List<ProvinceObj> listProvince = new();
-        ProvinceObj provinceObj = new();
 
         public List<ProvinceObj> GetListProvinces()
         {

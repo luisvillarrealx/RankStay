@@ -7,9 +7,7 @@ namespace RankStay_Web.Controllers
 {
     public class ReviewController : Controller
     {
-        readonly ReviewObj reviewObj = new();
         readonly ReviewModel reviewModel = new();
-        List<ReviewObj> reviewlist = new List<ReviewObj>();
 
         //[FilterSessionValidation]
         [HttpGet]

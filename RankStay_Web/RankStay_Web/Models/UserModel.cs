@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RankStay_Web.Entities;
-using System.Net.Http.Json;
-using System.Text;
 
 namespace RankStay_Web.Models
 {

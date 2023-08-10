@@ -16,7 +16,6 @@ namespace RankStay_Web.Controllers
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Login(UserObj userObj)
         {
@@ -36,7 +35,6 @@ namespace RankStay_Web.Controllers
                     HttpContext.Session.SetString("UserRole", result.UserRole.ToString());
                     return RedirectToAction("index", "home");
                 }
-
                 else
                 {
                     ViewBag.MsjError = "La información indicada es incorrecta.";
@@ -48,7 +46,6 @@ namespace RankStay_Web.Controllers
                 return RedirectToAction(nameof(Login));
             }
         }
-
 
         [HttpGet]
         public IActionResult Signup()
@@ -89,9 +86,7 @@ namespace RankStay_Web.Controllers
         [HttpPost]
         public ActionResult ResetPassword(UserObj userObj)
         {
-
             authModel.ResetPassword(userObj);
-
             return RedirectToAction("login", "auth");
         }
     }
