@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 
 // Register your custom services, including ReviewModel
 builder.Services.AddScoped<ReviewModel>();
+builder.Services.AddScoped<PropertyModel>();
+builder.Services.AddScoped<AuthModel>();
 
 var app = builder.Build();
 

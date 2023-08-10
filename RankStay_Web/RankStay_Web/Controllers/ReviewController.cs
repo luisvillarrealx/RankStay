@@ -33,11 +33,16 @@ namespace RankStay_Web.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Reviews()
-        {
-            return View(reviewModel.GetListReviews());
-        }
+        //[HttpGet]
+        //public IActionResult Reviews__()
+        //{
+        //    return View(reviewModel.GetListReviews());
+        //}
 
+        [HttpGet]
+        public IActionResult Reviews(int propertyId)
+        {
+            return View(reviewModel.GetReviewsByProperty(propertyId));
+        }
     }
 }

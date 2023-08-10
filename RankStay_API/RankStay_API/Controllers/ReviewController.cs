@@ -20,8 +20,7 @@ namespace RankStay_API.Controllers
             _reviewModel = reviewModel;
         }
 
-        [HttpGet]
-        [Route("getReviews")]
+        [HttpGet("getReviews")]
         public ActionResult<List<ReviewObj>> Get()
         {
             return _reviewModel.getListReviews();
@@ -38,25 +37,17 @@ namespace RankStay_API.Controllers
             return BadRequest();
         }
 
-        [HttpGet]
-        [Route("GetReviewsByProperty/{propertyId}")]
+        [HttpGet("GetReviewsByProperty/{propertyId}")]
         public ActionResult<List<ReviewObj>> GetReviewsByProperty(int propertyId)
         {
             try
             {
                 var reviews = _reviewModel.GetReviewsByProperty(propertyId);
-                if (reviews.Count == 0)
-                {
-                    // Return an empty list with a 200 status code if no reviews were found
-                    return Ok(reviews);
-                }
-                return Ok(reviews);
+                return reviews.Count == 0 ? Ok(reviews) : Ok(reviews);
             }
             catch (Exception ex)
             {
-                // Handle the exception, log it, and return an appropriate error response
-                Console.WriteLine("Error in GetReviewsByProperty: " + ex.Message);
-                return StatusCode(500, "An error occurred while fetching reviews.");
+                return StatusCode(500, "An error occurred while fetching reviews." + ex.Message);
             }
         }
     }

@@ -2,7 +2,7 @@
 
 <div class="container-xxl pt-5">
     <h1>Reseñas de @Html.DisplayFor(model => model.First().PropertyName)</h1>@**@
-    <p>Ubicada en: @Html.DisplayFor(model => model.First().ProvinceName)</p>
+    <p>Ubicada en: <strong> @Html.DisplayFor(model => model.First().ProvinceName) </strong></p>
     @Html.ActionLink("Escribir reseña", "RegisterReview", "Review", null, new { @class="btn btn-primary rounded-pill py-3 px-5"})
 
     <div class="mt-5">

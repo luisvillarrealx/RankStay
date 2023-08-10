@@ -7,17 +7,24 @@ namespace RankStay_API.Models
 {
     public class PropertyModel
     {
-        public List<ProvinceObj> ComboBoxProvince(IConfiguration stringConnection)
+        private readonly IConfiguration _configuration;
+
+        public PropertyModel(IConfiguration configuration)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            _configuration = configuration;
+        }
+
+        public List<ProvinceObj> ComboBoxProvince()
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Query<ProvinceObj>("SELECT * FROM PROVINCES").ToList();
             }
         }
 
-        public int RegisterProperty(PropertyObj propertyObj, IConfiguration stringConnection)
+        public int RegisterProperty(PropertyObj propertyObj)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Execute("SP_RegisterProperty",
                     new
@@ -28,19 +35,28 @@ namespace RankStay_API.Models
             }
         }
 
-        public List<PropertyObj> GetListProperties(IConfiguration stringConnection)
+        public List<PropertyObj> GetListProperties()
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Query<PropertyObj>("SP_GetAllProperties", commandType: CommandType.StoredProcedure).ToList(); // despues de commandtype se pasa parametro de id
             }
         }
 
-        public PropertyObj GetPropertyById(IConfiguration stringConnection, int id)
+        public PropertyObj GetPropertyById(int id)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Query<PropertyObj>("SELECT * FROM PROPERTIES WHERE PropertyId =" + id.ToString()).ToList()[0];
+            }
+        }
+
+        public List<PropertyObj> GetPropertiesByProvince(int provinceId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                connection.Open();
+                return connection.Query<PropertyObj>("SP_GetPropertiesByProvince", new { PropertyProvinceId = provinceId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

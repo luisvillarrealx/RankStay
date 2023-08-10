@@ -8,9 +8,16 @@ namespace RankStay_API.Models
 {
     public class AuthModel
     {
-        public int ResetPassword(UserObj user, IConfiguration stringConnection)
+        private readonly IConfiguration _configuration;
+
+        public AuthModel(IConfiguration configuration)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            _configuration = configuration;
+        }
+
+        public int ResetPassword(UserObj user)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Execute("SP_ResetPassword",
                     new
@@ -20,9 +27,9 @@ namespace RankStay_API.Models
                     }, commandType: CommandType.StoredProcedure);
             }
         }
-        public void ResetPasswordSmtp(UserObj user, IConfiguration stringConnection)
+        public void ResetPasswordSmtp(UserObj user)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 var respuesta = connection.QueryFirstOrDefault("SELECT * FROM USERS WHERE UserEmail  = @UserEmail", new { UserEmail = user.UserEmail });
 
@@ -57,9 +64,9 @@ namespace RankStay_API.Models
             client.Send(msg);
         }
 
-        public UserObj? login(UserObj userObj, IConfiguration stringConnection)
+        public UserObj? login(UserObj userObj)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 var data = connection.Query<UserObj>("SP_LogIn",
                     new
@@ -75,9 +82,9 @@ namespace RankStay_API.Models
                 return null;
             }
         }
-        public int signup(UserObj userObj, IConfiguration stringConnection)
+        public int signup(UserObj userObj)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Execute("SP_SignUp",
                     new

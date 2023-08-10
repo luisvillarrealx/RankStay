@@ -6,34 +6,31 @@ using RankStay_API.Models;
 
 namespace RankStay_API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class AuthController : Controller
     {
         private readonly IConfiguration _configuration;
-        AuthModel authModel = new();
+        private readonly AuthModel _authModel;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IConfiguration configuration, AuthModel authModel)
         {
             _configuration = configuration;
+            _authModel = authModel;
         }
 
         [HttpPut]
         [Route("ResetPassword")]
         public ActionResult ResetPassword(UserObj userObj)
         {
-            if (authModel.ResetPassword(userObj, _configuration) > 0)
-            {
-                return Ok(userObj);
-            }
-            return BadRequest();
+            return _authModel.ResetPassword(userObj) > 0 ? Ok(userObj) : BadRequest();
         }
 
         [HttpPost]
         [Route("ResetPasswordSmtp")]
         public void ResetPasswordSmtp(UserObj userObj)
         {
-            authModel.ResetPasswordSmtp(userObj, _configuration);
+            _authModel.ResetPasswordSmtp(userObj);
         }
 
         [HttpPost]
@@ -42,9 +39,8 @@ namespace RankStay_API.Controllers
         {
             try
             {
-                var data = authModel.login(userObj, _configuration);
-                if (data != null) return Ok(data);
-                else return BadRequest();
+                var data = _authModel.login(userObj);
+                return (data != null) ? Ok(data) : BadRequest();
             }
             catch (Exception ex)
             {
@@ -56,11 +52,7 @@ namespace RankStay_API.Controllers
         [Route("signup")]
         public ActionResult signup(UserObj userObj)
         {
-            if (authModel.signup(userObj, _configuration) > 0)
-            {
-                return Ok();
-            }
-            return BadRequest();
+            return _authModel.signup(userObj) > 0 ? Ok() : BadRequest();
         }
     }
 }

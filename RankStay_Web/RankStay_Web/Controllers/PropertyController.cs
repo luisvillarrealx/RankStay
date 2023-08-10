@@ -40,13 +40,5 @@ namespace RankStay_Web.Controllers
             return View(reviewModel.GetListReviews());
         }
 
-        //[HttpGet]
-        //public IActionResult Property(int propertyId)
-        //{
-        //    var reviews = reviewModel.GetReviewsByProperty(propertyId);
-        //    return View(reviews);
-        //}
-
-        // similar, pero que reciba id
     }
 }
