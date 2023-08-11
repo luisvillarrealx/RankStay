@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using RankStay_API.Entities;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,9 +9,16 @@ namespace RankStay_API.Models
 {
     public class UserModel
     {
-        public List<UserObj> GetListUsers(IConfiguration stringConnection)
+        private readonly IConfiguration _configuration;
+
+        public UserModel(IConfiguration configuration)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            _configuration = configuration;
+        }
+
+        public List<UserObj> GetListUsers()
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Query<UserObj>("SP_GetAllUsers", commandType: CommandType.StoredProcedure).ToList();
             }

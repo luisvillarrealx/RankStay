@@ -7,17 +7,24 @@ namespace RankStay_API.Models
 {
     public class ProvinceModel
     {
-        public List<ProvinceObj> getListProvince(IConfiguration stringConnection)
+        private readonly IConfiguration _configuration;
+
+        public ProvinceModel(IConfiguration configuration)
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            _configuration = configuration;
+        }
+
+        public List<ProvinceObj> GetListProvince()
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Query<ProvinceObj>("SP_GetProvinces", commandType: CommandType.StoredProcedure).ToList();
             }
         }
 
-        public List<ProvinceObj> ComboBoxProvince(IConfiguration stringConnection)
+        public List<ProvinceObj> ComboBoxProvince()
         {
-            using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
                 return connection.Query<ProvinceObj>("SP_GetProvinces", commandType: CommandType.StoredProcedure).ToList();
             }

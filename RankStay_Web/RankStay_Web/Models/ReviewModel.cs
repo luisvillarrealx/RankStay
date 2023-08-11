@@ -37,7 +37,7 @@ namespace RankStay_Web.Models
         {
             using (var client = new HttpClient())
             {
-                string urlApi = $"https://localhost:7216/api/Review/getReviewsByProperty/{propertyId}";
+                string urlApi = $"https://localhost:7216/api/Review/GetReviewsByProperty/{propertyId}";
 
                 try
                 {
@@ -58,19 +58,20 @@ namespace RankStay_Web.Models
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
-                    // Handle exceptions that occurred during the request.
-                    // For example: Log the error, throw a custom exception, etc.
+                    // Log or inspect the exception details
+                    Console.WriteLine("Exception: " + ex.Message);
+                    // Optional: Log the stack trace for more detailed information
+                    Console.WriteLine("Stack Trace: " + ex.StackTrace);
+                    throw; // Re-throw the exception to propagate it further if needed
                 }
 
                 return new List<ReviewObj>(); // Return an empty list on failure.
             }
         }
 
-
         public string RegisterReview(ReviewObj reviewObj)
         {
-            using (HttpClient access = new HttpClient())
+            using (HttpClient access = new())
             {
                 string urlApi = "https://localhost:7216/" + "api/Review/RegisterReview";
                 JsonContent content = JsonContent.Create(reviewObj);

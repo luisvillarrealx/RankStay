@@ -4,23 +4,24 @@ using RankStay_API.Models;
 
 namespace RankStay_API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly IConfiguration _configuration;
-        readonly UserModel userModel = new();
+        private readonly UserModel _userModel;
 
-        public UserController(IConfiguration configuration)
+        public UserController(IConfiguration configuration, UserModel userModel)
         {
             _configuration = configuration;
+            _userModel = userModel;
         }
 
         [HttpGet]
         [Route("GetAllUsers")]
-        public ActionResult<List<UserObj>> Get()
+        public ActionResult<List<UserObj>> GetAllUsers()
         {
-            return userModel.GetListUsers(_configuration);
+            return _userModel.GetListUsers();
         }
     }
 }

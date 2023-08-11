@@ -6,7 +6,7 @@ namespace RankStay_Web.Controllers
 {
     public class PropertyController : Controller
     {
-        readonly PropertyModel propertyModel = new();
+        readonly PropertyModel _propertyModel = new();
         readonly ReviewModel reviewModel = new();
 
         //[FilterSessionValidation]
@@ -19,12 +19,10 @@ namespace RankStay_Web.Controllers
         [HttpPost]
         public ActionResult RegisterProperty(PropertyObj propertyObj)
         {
-            //propertyObj.PorpertyReviewComment = "Comment";
-            //propertyObj.PorpertyReviewStar = 0.0;
-            //propertyObj.PropetyDescription = "Description";
-            //propertyObj.PropertyUserId = 1;
+            //propertyObj.propertyProvinceId = 1;
+            //propertyObj.propertyName = "Prueba";
 
-            if (propertyModel.RegisterProperty(propertyObj) != string.Empty)
+            if (_propertyModel.RegisterProperty(propertyObj) != string.Empty)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -34,11 +32,20 @@ namespace RankStay_Web.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Property()
+        [HttpGet("Property/Property/{propertyId}")]
+        public async Task<IActionResult> Property(int propertyId)
         {
-            return View(reviewModel.GetListReviews());
+            try
+            {
+                var reviews = await reviewModel.GetReviewsByProperty(propertyId);
+                return View(reviews);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.Message);
+                Console.WriteLine("Stack Trace: " + ex.StackTrace);
+                return StatusCode(500, "An error occurred while fetching reviews: " + ex.Message);
+            }
         }
-
     }
 }

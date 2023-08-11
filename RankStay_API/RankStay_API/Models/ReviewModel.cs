@@ -28,7 +28,7 @@ namespace RankStay_API.Models
             }
         }
 
-        public List<ReviewObj> getListReviews()
+        public List<ReviewObj> GetListReviews() // DEPRECATED
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
@@ -40,7 +40,6 @@ namespace RankStay_API.Models
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
-                //return connection.Query<ReviewObj>("SP_GetReviewsByProperty", propertyId, commandType: CommandType.StoredProcedure).ToList();
                 connection.Open();
                 return connection.Query<ReviewObj>("SP_GetReviewsByProperty", new { ReviewPropertyId = propertyId }, commandType: CommandType.StoredProcedure).ToList();
             }

@@ -20,21 +20,17 @@ namespace RankStay_API.Controllers
             _reviewModel = reviewModel;
         }
 
-        [HttpGet("getReviews")]
-        public ActionResult<List<ReviewObj>> Get()
-        {
-            return _reviewModel.getListReviews();
-        }
+        //[HttpGet("GetReviews")]
+        //public ActionResult<List<ReviewObj>> GetReviews()
+        //{
+        //    return _reviewModel.GetListReviews();
+        //}
 
         [HttpPost]
         [Route("RegisterReview")]
         public ActionResult RegisterReview(ReviewObj reviewObj)
         {
-            if (_reviewModel.RegisterReview(reviewObj) > 0)
-            {
-                return Ok();
-            }
-            return BadRequest();
+            return (_reviewModel.RegisterReview(reviewObj) > 0) ? Ok() : BadRequest();
         }
 
         [HttpGet("GetReviewsByProperty/{propertyId}")]
@@ -43,7 +39,7 @@ namespace RankStay_API.Controllers
             try
             {
                 var reviews = _reviewModel.GetReviewsByProperty(propertyId);
-                return reviews.Count == 0 ? Ok(reviews) : Ok(reviews);
+                return reviews.Count != 0 ? Ok(reviews) : BadRequest();
             }
             catch (Exception ex)
             {

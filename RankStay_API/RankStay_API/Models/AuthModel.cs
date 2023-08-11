@@ -64,25 +64,20 @@ namespace RankStay_API.Models
             client.Send(msg);
         }
 
-        public UserObj? login(UserObj userObj)
+        public UserObj? Login(UserObj userObj)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
-                var data = connection.Query<UserObj>("SP_LogIn",
+                return connection.Query<UserObj>("SP_LogIn",
                     new
                     {
                         userObj.UserEmail,
                         userObj.UserPassword
                     },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
-                if (data != null)
-                {
-                    return data;
-                }
-                return null;
             }
         }
-        public int signup(UserObj userObj)
+        public int Signup(UserObj userObj)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {

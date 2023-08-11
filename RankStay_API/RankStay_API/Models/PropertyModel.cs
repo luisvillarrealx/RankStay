@@ -35,11 +35,11 @@ namespace RankStay_API.Models
             }
         }
 
-        public List<PropertyObj> GetListProperties()
+        public List<PropertyObj> GetListProperties() // DEPRECATED
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
-                return connection.Query<PropertyObj>("SP_GetAllProperties", commandType: CommandType.StoredProcedure).ToList(); // despues de commandtype se pasa parametro de id
+                return connection.Query<PropertyObj>("SP_GetAllProperties", commandType: CommandType.StoredProcedure).ToList();
             }
         }
 

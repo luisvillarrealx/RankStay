@@ -5,8 +5,7 @@ namespace RankStay_Web.Controllers
 {
     public class HomeController : Controller
     {
-        //readonly PropertyObj propertyObj = new();
-        public ProvinceModel provinceModel = new();
+        readonly ProvinceModel provinceModel = new();
         readonly PropertyModel propertyModel = new();
 
         public IActionResult Index()
@@ -14,10 +13,20 @@ namespace RankStay_Web.Controllers
             return View(provinceModel.GetListProvinces().ToList());
         }
 
-        public IActionResult Province()
+        [HttpGet("Home/Province/{provinceId}")]
+        public async Task<IActionResult> Province(int provinceId)
         {
-            return View(propertyModel.getListProperties());
+            try
+            {
+                var reviews = await propertyModel.GetPropertiesByProvince(provinceId);
+                return View(reviews);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.Message);
+                Console.WriteLine("Stack Trace: " + ex.StackTrace);
+                return StatusCode(500, "An error occurred while fetching reviews: " + ex.Message);
+            }
         }
-
     }
 }

@@ -4,23 +4,24 @@ using RankStay_API.Models;
 
 namespace RankStay_API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ProvinceController : Controller
     {
-        public ProvinceModel provinceModel = new(); 
         private readonly IConfiguration _configuration;
+        private readonly ProvinceModel _provinceModel;
 
-        public ProvinceController(IConfiguration configuration)
+        public ProvinceController(IConfiguration configuration, ProvinceModel provinceModel)
         {
             _configuration = configuration;
+            _provinceModel = provinceModel;
         }
 
         [HttpGet]
-        [Route("getProvinces")]
-        public ActionResult<List<ProvinceObj>> get()
+        [Route("GetProvinces")]
+        public ActionResult<List<ProvinceObj>> GetProvinces()
         {
-            return provinceModel.getListProvince(_configuration);
+            return _provinceModel.GetListProvince();
         }
     }
 }

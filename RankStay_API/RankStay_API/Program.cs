@@ -9,10 +9,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Register your custom services, including ReviewModel
-builder.Services.AddScoped<ReviewModel>();
-builder.Services.AddScoped<PropertyModel>();
+// Custom services
 builder.Services.AddScoped<AuthModel>();
+builder.Services.AddScoped<PropertyModel>();
+builder.Services.AddScoped<ProvinceModel>();
+builder.Services.AddScoped<ReviewModel>();
+builder.Services.AddScoped<UserModel>();
 
 var app = builder.Build();
 

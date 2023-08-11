@@ -347,7 +347,8 @@ BEGIN
     SELECT
     REVIEWS.ReviewId,
     REVIEWS.ReviewPropertyId,
-    PROPERTIES.PropertyName AS PropertyName,
+    PROPERTIES.PropertyName,
+	PROVINCES.ProvinceName,
     REVIEWS.ReviewComment,
 	REVIEWS.ReviewStar
 FROM
@@ -356,6 +357,10 @@ INNER JOIN
     PROPERTIES
 ON
     REVIEWS.ReviewPropertyId = PROPERTIES.PropertyId
+INNER JOIN
+	PROVINCES
+ON
+	PROVINCES.ProvinceId = PROPERTIES.PropertyProvinceId
 WHERE
     REVIEWS.ReviewPropertyId = @ReviewPropertyId;
 END
@@ -365,9 +370,21 @@ CREATE OR ALTER PROCEDURE [dbo].[SP_GetPropertiesByProvince]
     @PropertyProvinceId INT
 AS
 BEGIN
-    SELECT *
-    FROM PROPERTIES
-    WHERE PropertyProvinceId = @PropertyProvinceId;
+    SELECT
+    PropertyId,
+    PropertyProvinceId,
+    PROVINCES.ProvinceName,
+    PropertyName,
+    PropertyDescription,
+    PropertyUserId
+FROM
+    PROPERTIES
+INNER JOIN
+    PROVINCES
+ON
+    PROPERTIES.PropertyProvinceId = PROVINCES.ProvinceId
+WHERE
+    PropertyProvinceId = @PropertyProvinceId;
 END
 --EXEC dbo.[SP_GetPropertiesByProvince] @ProvinceId = 1;
 GO

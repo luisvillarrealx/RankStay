@@ -34,12 +34,12 @@ namespace RankStay_API.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
-        public ActionResult<UserObj> login(UserObj userObj)
+        [Route("Login")]
+        public ActionResult<UserObj> Login(UserObj userObj)
         {
             try
             {
-                var data = _authModel.login(userObj);
+                var data = _authModel.Login(userObj);
                 return (data != null) ? Ok(data) : BadRequest();
             }
             catch (Exception ex)
@@ -49,10 +49,10 @@ namespace RankStay_API.Controllers
         }
 
         [HttpPost]
-        [Route("signup")]
-        public ActionResult signup(UserObj userObj)
+        [Route("Signup")]
+        public ActionResult Signup(UserObj userObj)
         {
-            return _authModel.signup(userObj) > 0 ? Ok() : BadRequest();
+            return _authModel.Signup(userObj) > 0 ? Ok() : BadRequest();
         }
     }
 }
