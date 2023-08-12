@@ -17,35 +17,18 @@ namespace RankStay_Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterProperty(PropertyObj propertyObj)
+        public IActionResult RegisterProperty(PropertyObj propertyObj)
         {
-            //propertyObj.propertyProvinceId = 1;
-            //propertyObj.propertyName = "Prueba";
-
-            if (_propertyModel.RegisterProperty(propertyObj) != string.Empty)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View();
-            }
+            return _propertyModel.RegisterProperty(propertyObj) != null
+                ? RedirectToAction("Index", "Home")
+                : View();
         }
+
 
         [HttpGet("Property/Property/{propertyId}")]
         public async Task<IActionResult> Property(int propertyId)
         {
-            try
-            {
-                var reviews = await reviewModel.GetReviewsByProperty(propertyId);
-                return View(reviews);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception: " + ex.Message);
-                Console.WriteLine("Stack Trace: " + ex.StackTrace);
-                return StatusCode(500, "An error occurred while fetching reviews: " + ex.Message);
-            }
+            return View(await reviewModel.GetReviewsByProperty(propertyId));
         }
     }
 }

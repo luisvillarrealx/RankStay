@@ -7,45 +7,23 @@
     <div class="row px-3">
         <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
             <div class="img-left d-none d-md-flex"></div>
-
             <div class="card-body">
-                <h4 class="title text-center mt-4">
-                    Registrarse
-                </h4>
-                @using (Html.BeginForm("signup", "auth", FormMethod.Post, new {@class="form-box px-3"}))
-                        {
+                <h4 class="title text-center mt-4">Registrarse</h4>
+                <form asp-action="Signup" method="post" class="form-box px-3">
                     <div class="form-input">
-                        @Html.TextBoxFor(m => m.UserEmail, new
-                    {
-                    @class = "form-control",
-                    @placeholder = "Correo electrónico",
-                    @required = true
-                    })
+                        <span><i class="fa fa-envelope-o"></i></span>
+                        <input asp-for="UserEmail" class="form-control" placeholder="Correo electrónico" required />
                     </div>
                     <div class="form-input">
-                        @Html.TextBoxFor(m => m.UserPassword, new
-                    {
-                    @class = "form-control",
-                    @required = true,
-                    @placeholder = "Contraseña",
-                    @type = "Password"
-                    })
-                    </div>
-                 @*   <div class="form-input">
                         <span><i class="fa fa-key"></i></span>
-                        <input type="password" name="" placeholder="Confirmar contraseña" required>
-                    </div>*@
+                        <input asp-for="UserPassword" class="form-control" placeholder="Contraseña" type="password" required />
+                    </div>
                     <div class="mb-4">
                         <button type="submit" class="btn btn-block text-uppercase">
-                           Registrarse
+                            Registrarse
                         </button>
                     </div>
-                    <hr class="my-4">
-                    <div class="text-center mb-2">
-                        Ya tienes cuenta?
-                        @Html.ActionLink("Inicia sesión", "login", "auth", null, new { @class="register-link"})
-                    </div>
-                    }
+                </form>
             </div>
         </div>
     </div>

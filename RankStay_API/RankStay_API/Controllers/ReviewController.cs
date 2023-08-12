@@ -20,11 +20,11 @@ namespace RankStay_API.Controllers
             _reviewModel = reviewModel;
         }
 
-        //[HttpGet("GetReviews")]
-        //public ActionResult<List<ReviewObj>> GetReviews()
-        //{
-        //    return _reviewModel.GetListReviews();
-        //}
+        [HttpGet("GetAllReviews")]
+        public ActionResult<List<ReviewObj>> GetReviews()
+        {
+            return _reviewModel.GetListReviews();
+        }
 
         [HttpPost]
         [Route("RegisterReview")]

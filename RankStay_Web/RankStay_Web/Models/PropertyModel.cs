@@ -5,68 +5,40 @@ namespace RankStay_Web.Models
 {
     public class PropertyModel
     {
-        public string lblmsj { get; set; }
-        PropertyObj propertyObj = new();
+        public string? lblmsj { get; set; }
         public List<PropertyObj> listProperty = new();
-        readonly string urlGet = "https://localhost:7216/api/Property/GetPropertyById";
 
-        public string RegisterProperty(PropertyObj propertyObj)
+        public async Task<string> RegisterProperty(PropertyObj propertyObj)
         {
-            using (HttpClient access = new()) {
-
+            using (var access = new HttpClient())
+            {
                 string urlApi = "https://localhost:7216/api/Property/RegisterProperty";
                 JsonContent content = JsonContent.Create(propertyObj);
-                HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
-
-                return (response.IsSuccessStatusCode) ? "OK" : string.Empty;
+                HttpResponseMessage response = await access.PostAsync(urlApi, content);
+                return response.IsSuccessStatusCode ? "OK" : string.Empty;
             }
         }
 
-        public List<PropertyObj> GetListProperties()
+        public async Task<List<PropertyObj>> GetListProperties()
         {
-            using (var client = new HttpClient())
+            using (var access = new HttpClient())
             {
-                var task = Task.Run(async () =>
-                {
-                    string urlApi = "https://localhost:7216/api/Property/GetProperties";
-                    return await client.GetAsync(urlApi);
-                }
-                );
-                HttpResponseMessage message = task.Result;
-                if (message.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    var task2 = Task<string>.Run(async () =>
-                    {
-                        return await message.Content.ReadAsStringAsync();
-                    });
-                    string resultstr = task2.Result;
-                    listProperty = JsonConvert.DeserializeObject<List<PropertyObj>>(resultstr);
-                }
+                HttpResponseMessage response = await access.GetAsync("https://localhost:7216/api/Property/GetProperties");
+                string resultstr = await response.Content.ReadAsStringAsync();
+                List<PropertyObj>? list = JsonConvert.DeserializeObject<List<PropertyObj>>(resultstr);
+                return list ?? new List<PropertyObj>();
             }
-            return listProperty;
         }
 
-        public PropertyObj GetProperty(int id)
+        public async Task<List<PropertyObj>> GetProperty(int id)
         {
-            using (var client = new HttpClient())
+            using (var access = new HttpClient())
             {
-                var task = Task.Run(async () =>
-                {
-                    return await client.GetAsync(urlGet + "/" + id.ToString());
-                }
-                );
-                HttpResponseMessage message = task.Result;
-                if (message.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    var task2 = Task<string>.Run(async () =>
-                    {
-                        return await message.Content.ReadAsStringAsync();
-                    });
-                    string resultstr = task2.Result;
-                    propertyObj = JsonConvert.DeserializeObject<PropertyObj>(resultstr);
-                }
+                HttpResponseMessage response = await access.GetAsync($"https://localhost:7216/api/Property/GetPropertyById{id}");
+                string resultstr = await response.Content.ReadAsStringAsync();
+                List<PropertyObj>? list = JsonConvert.DeserializeObject<List<PropertyObj>>(resultstr);
+                return list ?? new List<PropertyObj>();
             }
-            return propertyObj;
         }
 
         public async Task<List<PropertyObj>> GetPropertiesByProvince(int provinceId)

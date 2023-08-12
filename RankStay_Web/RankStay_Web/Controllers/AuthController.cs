@@ -25,7 +25,7 @@ namespace RankStay_Web.Controllers
                 userObj.UserLastName1 = "Villarreal";
                 userObj.UserLastName2 = "Retes";
                 userObj.UserRole = 1;
-                var result = authModel.login(userObj);
+                var result = authModel.Login(userObj);
                 if (result != null)
                 {
                     HttpContext.Session.SetString("UserEmail", result.UserEmail);
@@ -61,7 +61,7 @@ namespace RankStay_Web.Controllers
             userObj.UserLastName2 = "Retes";
             userObj.UserRole = 1;
 
-            if (authModel.signup(userObj) != string.Empty)
+            if (authModel.Signup(userObj) != string.Empty)
             {
                 return RedirectToAction("login", "Auth");
             }
@@ -77,16 +77,16 @@ namespace RankStay_Web.Controllers
             return View();
         }
 
-        public ActionResult ResetPassword(int id)
-        {
-            userObj.UserId = id;
-            return View(userObj);
-        }
+        //public ActionResult ResetPassword(int id)
+        //{
+        //    userObj.UserId = id;
+        //    return View(userObj);
+        //}
 
         [HttpPost]
-        public ActionResult ResetPassword(UserObj userObj)
+        public async Task<ActionResult> Forgot(UserObj userObj)
         {
-            authModel.ResetPassword(userObj);
+            await authModel.ResetPassword(userObj);
             return RedirectToAction("login", "auth");
         }
     }

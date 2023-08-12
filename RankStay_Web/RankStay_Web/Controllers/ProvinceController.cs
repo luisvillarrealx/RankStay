@@ -5,12 +5,12 @@ namespace RankStay_Web.Controllers
 {
     public class ProvinceController : Controller
     {
-        readonly ProvinceModel provinceModel = new();
+        readonly ProvinceModel _provinceModel = new();
 
         [HttpGet]
-        public IActionResult Provinces()
-        {
-            return View(provinceModel.GetListProvinces());
+        public async Task<IActionResult> Provinces()
+            {
+            return View(await _provinceModel.GetListProvinces());
         }
     }
 }

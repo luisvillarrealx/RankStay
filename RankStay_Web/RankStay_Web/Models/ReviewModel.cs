@@ -8,76 +8,35 @@ namespace RankStay_Web.Models
         public string? lblmsj { get; set; }
         public List<ReviewObj> listReview = new();
 
-        public List<ReviewObj> GetListReviews()
+        public async Task<List<ReviewObj>> GetListReviews()
         {
-            using (var client = new HttpClient())
+            using (var access = new HttpClient())
             {
-                var task = Task.Run(async () =>
-                {
-                    string urlApi = "https://localhost:7216/api/Review/getReviews";
-                    return await client.GetAsync(urlApi);
-                }
-                );
-                HttpResponseMessage message = task.Result;
-                if (message.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    var task2 = Task<string>.Run(async () =>
-                    {
-                        return await message.Content.ReadAsStringAsync();
-                    });
-                    string resultstr = task2.Result;
-                    listReview = JsonConvert.DeserializeObject<List<ReviewObj>>(resultstr);
-                }
+                HttpResponseMessage message = await access.GetAsync("https://localhost:7216/api/Review/GetAllReviews");
+                string resultStr = await message.Content.ReadAsStringAsync();
+                List<ReviewObj>? list = JsonConvert.DeserializeObject<List<ReviewObj>>(resultStr);
+                return list ?? new List<ReviewObj>();
             }
-            return listReview;
         }
 
-        // get reviews based on property id == filtered reviews for selected property
         public async Task<List<ReviewObj>> GetReviewsByProperty(int propertyId)
         {
-            using (var client = new HttpClient())
+            using (var access = new HttpClient())
             {
-                string urlApi = $"https://localhost:7216/api/Review/GetReviewsByProperty/{propertyId}";
-
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(urlApi);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string resultStr = await response.Content.ReadAsStringAsync();
-                        List<ReviewObj> reviews = JsonConvert.DeserializeObject<List<ReviewObj>>(resultStr);
-                        return reviews;
-                    }
-                    else
-                    {
-                        throw new Exception();
-                        // Handle non-success status code if needed.
-                        // For example: Log the error, throw an exception, etc.
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Log or inspect the exception details
-                    Console.WriteLine("Exception: " + ex.Message);
-                    // Optional: Log the stack trace for more detailed information
-                    Console.WriteLine("Stack Trace: " + ex.StackTrace);
-                    throw; // Re-throw the exception to propagate it further if needed
-                }
-
-                return new List<ReviewObj>(); // Return an empty list on failure.
+                HttpResponseMessage response = await access.GetAsync($"https://localhost:7216/api/Review/GetReviewsByProperty/{propertyId}");
+                string resultStr = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<List<ReviewObj>>(resultStr) ?? new List<ReviewObj>();
             }
         }
 
-        public string RegisterReview(ReviewObj reviewObj)
+        public async Task<string> RegisterReview(ReviewObj reviewObj)
         {
-            using (HttpClient access = new())
+            using (var access = new HttpClient())
             {
-                string urlApi = "https://localhost:7216/" + "api/Review/RegisterReview";
+                string urlApi = "https://localhost:7216/api/Review/RegisterReview";
                 JsonContent content = JsonContent.Create(reviewObj);
-                HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
-
-                return (response.IsSuccessStatusCode) ? "OK" : string.Empty;
+                HttpResponseMessage response = await access.PostAsync(urlApi, content);
+                return response.IsSuccessStatusCode ? "OK" : string.Empty;
             }
         }
     }

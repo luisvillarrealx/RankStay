@@ -6,11 +6,11 @@ namespace RankStay_Web.Models
     {
         public string? lblmsj { get; set; }
 
-        public UserObj? login(UserObj userObj)
+        public UserObj? Login(UserObj userObj)
         {
-            using (HttpClient access = new())
+            using (var access = new HttpClient())
             {
-                string urlApi = "https://localhost:7216/api/Auth/login";
+                string urlApi = "https://localhost:7216/api/Auth/Login";
                 JsonContent content = JsonContent.Create(userObj);
                 HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
 
@@ -18,23 +18,30 @@ namespace RankStay_Web.Models
             }
         }
 
-        public string ResetPassword(UserObj userObj)
+        public async Task<string> ResetPassword(UserObj userObj)
         {
-            using (HttpClient access = new())
+            using (var access = new HttpClient())
             {
-                string urlApi = "https://localhost:7216/api/auth/ResetPassword";
+                string urlApi = "https://localhost:7216/api/Auth/ResetPassword";
                 JsonContent content = JsonContent.Create(userObj);
-                HttpResponseMessage response = access.PutAsync(urlApi, content).GetAwaiter().GetResult();
+                try
+                {
+                    HttpResponseMessage response = await access.PutAsync(urlApi, content);
 
-                return (response.IsSuccessStatusCode) ? "OK" : string.Empty;
+                    return response.IsSuccessStatusCode ? "OK" : string.Empty;
+                }
+                catch (Exception ex)
+                {
+                    return "An error occurred: " + ex.Message;
+                }
             }
-        
         }
-        public string signup(UserObj userObj)
+
+        public string Signup(UserObj userObj)
         {
-            using (HttpClient access = new HttpClient())
+            using (var access = new HttpClient())
             {
-                string urlApi = "https://localhost:7216/api/Auth/signup";
+                string urlApi = "https://localhost:7216/api/Auth/Signup";
                 JsonContent content = JsonContent.Create(userObj);
                 HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
 

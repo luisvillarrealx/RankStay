@@ -5,12 +5,12 @@ namespace RankStay_Web.Controllers
 {
     public class UserController : Controller
     {
-        readonly UserModel userModel = new();
+        readonly UserModel _userModel = new();
 
         [HttpGet]
-        public IActionResult Users()
+        public async Task<IActionResult> Users()
         {
-            return View(userModel.GetListUsers());
+            return View(await _userModel.GetListUsers());
         }
     }
 }

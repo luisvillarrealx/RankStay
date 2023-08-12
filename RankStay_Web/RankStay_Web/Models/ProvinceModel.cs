@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RankStay_Web.Entities;
+using System.Collections.Generic;
 
 namespace RankStay_Web.Models
 {
@@ -8,28 +9,20 @@ namespace RankStay_Web.Models
         public string? lblmsj { get; set; }
         public List<ProvinceObj> listProvince = new();
 
-        public List<ProvinceObj> GetListProvinces()
+        public async Task<List<ProvinceObj>> GetListProvinces()
         {
-            using (var client = new HttpClient())
+            using (var access = new HttpClient())
             {
-                var task = Task.Run(async () =>
+                HttpResponseMessage response = await access.GetAsync("https://localhost:7216/api/Province/getProvinces");
+                if (response.IsSuccessStatusCode)
                 {
-                    string urlApi = "https://localhost:7216/api/Province/getProvinces";
-                    return await client.GetAsync(urlApi);
+                    string resultstr = await response.Content.ReadAsStringAsync();
+                    List<ProvinceObj>? list = JsonConvert.DeserializeObject<List<ProvinceObj>>(resultstr);
+                    return list;
                 }
-                );
-                HttpResponseMessage message = task.Result;
-                if (message.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    var task2 = Task<string>.Run(async () =>
-                    {
-                        return await message.Content.ReadAsStringAsync();
-                    });
-                    string resultstr = task2.Result;
-                    listProvince = JsonConvert.DeserializeObject<List<ProvinceObj>>(resultstr);
-                }
+
+                return new List<ProvinceObj>();
             }
-            return listProvince;
         }
     }
 }

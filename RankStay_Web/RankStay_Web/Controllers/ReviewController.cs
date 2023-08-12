@@ -16,50 +16,30 @@ namespace RankStay_Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Reviews()
+        {
+            return View(await _reviewModel.GetListReviews());
+        }
+
         [HttpPost]
         public ActionResult RegisterReview(ReviewObj reviewObj)
         {
-            //reviewObj.PorpertyReviewComment = "Comment";
-            //reviewObj.PorpertyReviewStar = 0.0;
-            //reviewObj.PropetyDescription = "Description";
-            //reviewObj.PropertyUserId = 1;
-
-            if (_reviewModel.RegisterReview(reviewObj) != string.Empty)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View();
-            }
+            return _reviewModel.RegisterReview(reviewObj) != null ? RedirectToAction("Index", "Home") : View();
         }
 
-        //[HttpGet]
-        //public IActionResult Reviews__()
-        //{
-        //    return View(reviewModel.GetListReviews());
-        //}
-
-        //[HttpGet]
-        //public IActionResult Reviews1(int propertyId)
-        //{
-        //    return View(reviewModel.GetReviewsByProperty(propertyId));
-        //}
-
-        public async Task<List<ReviewObj>> GetReviewsByProperty(int propertyId)
+        public async Task<List<ReviewObj>> GetReviewsByProperty(int propertyId) //NEVER USED
         {
             using (var client = new HttpClient())
             {
-                string urlApi = $"https://localhost:7216/api/Review/GetReviewsByProperty/{propertyId}";
-
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(urlApi);
+                    HttpResponseMessage response = await client.GetAsync($"https://localhost:7216/api/Review/GetReviewsByProperty/{propertyId}");
 
                     if (response.IsSuccessStatusCode)
                     {
                         string resultStr = await response.Content.ReadAsStringAsync();
-                        List<ReviewObj> reviews = JsonConvert.DeserializeObject<List<ReviewObj>>(resultStr);
+                        List<ReviewObj>? reviews = JsonConvert.DeserializeObject<List<ReviewObj>>(resultStr);
                         return reviews;
                     }
                     else
@@ -71,18 +51,17 @@ namespace RankStay_Web.Controllers
                 catch (HttpRequestException ex)
                 {
                     Console.WriteLine("HTTP Request Exception: " + ex.Message);
-                    throw; // Re-throw the exception to propagate it further if needed
+                    throw;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Exception: " + ex.Message);
                     Console.WriteLine("Stack Trace: " + ex.StackTrace);
-                    throw; // Re-throw the exception to propagate it further if needed
+                    throw;
                 }
 
                 return new List<ReviewObj>(); // Return an empty list on failure.
             }
         }
-
     }
 }

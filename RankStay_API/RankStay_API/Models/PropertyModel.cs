@@ -35,7 +35,7 @@ namespace RankStay_API.Models
             }
         }
 
-        public List<PropertyObj> GetListProperties() // DEPRECATED
+        public List<PropertyObj> GetListProperties()
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
@@ -55,7 +55,6 @@ namespace RankStay_API.Models
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
             {
-                connection.Open();
                 return connection.Query<PropertyObj>("SP_GetPropertiesByProvince", new { PropertyProvinceId = provinceId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }

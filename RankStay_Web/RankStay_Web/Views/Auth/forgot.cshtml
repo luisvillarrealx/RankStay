@@ -1,6 +1,9 @@
-﻿@{
+﻿@model RankStay_Web.Entities.UserObj
+
+@{
     Layout = "_LayoutAuth";
 }
+
 <div class="container">
     <div class="row px-3">
         <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
@@ -10,10 +13,16 @@
                 <h4 class="title text-center mt-4">
                     Recupera tu cuenta
                 </h4>
-                <form class="form-box px-3">
+                @using (Html.BeginForm("Forgot", "Auth", FormMethod.Post, new {@class="form-box px-3"}))
+                {
                     <div class="form-input">
                         <span><i class="fa fa-envelope-o"></i></span>
-                        <input type="email" name="" placeholder="Correo electrónico" tabindex="10" required>
+                        @Html.TextBoxFor(m => m.UserEmail, new
+                    {
+                    @class = "form-control",
+                    @placeholder = "Correo electrónico",
+                    @required = true
+                    })
                     </div>
                     <div class="mb-4">
                         <button type="submit" class="btn btn-block text-uppercase">
@@ -25,7 +34,7 @@
                         Ya tienes cuenta?
                         @Html.ActionLink("Inicia sesión", "login", "auth", null, new { @class="register-link"})
                     </div>
-                </form>
+                }
             </div>
         </div>
     </div>

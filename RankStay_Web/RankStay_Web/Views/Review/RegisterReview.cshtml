@@ -6,48 +6,24 @@
         <div class="row d-flex justify-content-center">
             <div class="col-lg-6 wow fadeInUp card p-5" data-wow-delay="0.5s">
                 <h2 class="mb-4">Nueva reseña</h2>
-                @using (Html.BeginForm("RegisterReview", "Review", FormMethod.Post, new { @class = "form-box px-3" }))
-                {
+                <form asp-action="RegisterReview" method="post" class="form-box px-3">
                     <div class="row g-3">
                         <div class="col-sm-12">
                             <div class="form-floating">
-                                @Html.TextBoxFor(m => m.ReviewPropertyId, new
-                            {
-                            @class = "form-control",
-                            @name="province",
-                            @placeholder="Propiedad",
-                            @id="province",
-                            @required = true
-                            })
-                                <label for="province">Propiedad</label>
+                                <input asp-for="ReviewPropertyId" class="form-control" name="property" placeholder="Propiedad" required />
+                                <label for="property">Propiedad</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                @Html.TextBoxFor(m => m.ReviewStar, new
-                            {
-                            @class = "form-control",
-                            @name="property",
-                            @placeholder="Calificación",
-                            @id="property",
-                            @required = true
-                            })
-                                <label for="PropertyName">Calificación</label>
+                                <input asp-for="ReviewStar" class="form-control" name="property" placeholder="Calificación" required />
+                                <label for="property">Calificación</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                @Html.TextAreaFor(m => m.ReviewComment, new
-                            {
-                            @class = "form-control",
-                            @name="property",
-                            @placeholder="Comentario",
-                            @id="property",
-                            @required = true,
-                            @rows = 50,
-                            @cols = 40
-                            })
-                                <label for="PropertyName">Comentario</label>
+                                <textarea asp-for="ReviewComment" style="height: 100px;" class="form-control" name="property" placeholder="Comentario" required rows="50" cols="40"></textarea>
+                                <label for="property">Comentario</label>
                             </div>
                         </div>
 
@@ -55,7 +31,8 @@
                             <button class="btn btn-primary w-100 py-3" type="submit">Agregar</button>
                         </div>
                     </div>
-                }
+                </form>
+
             </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RankStay_Web.Entities;
 using RankStay_Web.Models;
 
 namespace RankStay_Web.Controllers
@@ -8,9 +9,9 @@ namespace RankStay_Web.Controllers
         readonly ProvinceModel provinceModel = new();
         readonly PropertyModel propertyModel = new();
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(provinceModel.GetListProvinces().ToList());
+            return View(await provinceModel.GetListProvinces());
         }
 
         [HttpGet("Home/Province/{provinceId}")]
@@ -25,7 +26,7 @@ namespace RankStay_Web.Controllers
             {
                 Console.WriteLine("Exception: " + ex.Message);
                 Console.WriteLine("Stack Trace: " + ex.StackTrace);
-                return StatusCode(500, "An error occurred while fetching reviews: " + ex.Message);
+                return StatusCode(500, "An error occurred while fetching provinces: " + ex.Message);
             }
         }
     }

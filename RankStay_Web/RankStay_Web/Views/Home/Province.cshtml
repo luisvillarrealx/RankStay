@@ -3,19 +3,19 @@
 <div class="container-xxl pt-5 mb-5">
     @if (Model.Any())
     {
-        <h1>Propiedades registradas en @Html.DisplayFor(model => model.First().ProvinceName)</h1>
+        <h1>Propiedades registradas en <span class="text-primary">@Html.DisplayFor(model => model.First().ProvinceName)</span></h1>
     }
     else
     {
         <h1>No hay propiedades registradas en esta provincia</h1>
     }
     <p>Selecciona una propiedad para conocer sus calificaciones</p>
-    @Html.ActionLink("Agregar propiedad", "RegisterProperty", "Property", null, new { @class="btn btn-primary rounded-pill py-3 px-5"})
+    <a asp-action="RegisterProperty" asp-controller="Property" class="btn btn-primary rounded-pill py-3 px-5">Agregar propiedad</a>
 
     <div class="mt-5">
         @foreach (var item in Model)
         {
-            <a href="@Url.Action("Property","Property", new { ID = item.PropertyId })">
+            <a asp-action="Property" asp-controller="Property" asp-route-ID="@item.PropertyId">
                 <div class="card flex-row mb-4">
                     <img class="card-img-left" src="https://holidayhome.stayfritz.com/_published/stayfritz/1047387/274c034d-515b-4a24-a8a0-8d8ecfd1baf4/thumbnail_xs.webp" style="width: 200px; border-radius: 5px 0 0 5px" alt="loft" />
                     <div class="card-body">

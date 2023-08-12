@@ -9,6 +9,6 @@ namespace RankStay_Web.Entities
         public string? PropertyName { get; set; }
         public string? ProvinceName { get; set; }
         public string? ReviewComment { get; set; }
-        public double? ReviewStar { get; set; }
+        public double ReviewStar { get; set; }
     }
 }

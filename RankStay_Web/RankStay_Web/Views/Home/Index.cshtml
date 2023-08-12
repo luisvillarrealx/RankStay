@@ -15,7 +15,7 @@
             @foreach (var item in Model)
             {
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <a href="@Url.Action("Province","Home", new { ID = item.ProvinceId })">
+                    <a asp-action="Province" asp-controller="Home" asp-route-ID="@item.ProvinceId">
                         <div class="card">
                             <img src="https://spanishpuravida.com/wp-content/uploads/2018/12/alajuela.jpg" class="card-img-top" alt="Image 1">
                             <div class="card-body">

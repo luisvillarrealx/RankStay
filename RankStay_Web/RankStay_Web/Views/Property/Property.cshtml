@@ -1,9 +1,17 @@
 ﻿@model List<RankStay_Web.Entities.ReviewObj>
 
 <div class="container-xxl pt-5">
-    <h1>Reseñas de @Html.DisplayFor(model => model.First().PropertyName)</h1>@**@
-    <p>Ubicada en: <strong> @Html.DisplayFor(model => model.First().ProvinceName) </strong></p>
-    @Html.ActionLink("Escribir reseña", "RegisterReview", "Review", null, new { @class="btn btn-primary rounded-pill py-3 px-5"})
+    @if (Model.Any())
+    {
+        <h1>Reseñas de <span class="text-primary">@Html.DisplayFor(model => model.First().PropertyName)</span></h1>
+        <p>Ubicada en: <strong> @Html.DisplayFor(model => model.First().ProvinceName) </strong></p>
+    }
+    else
+    {
+        <h1>No hay reseñas registradas en esta provincia</h1>
+    }
+    @* <h1>Reseñas de <span class="text-primary">@Html.DisplayFor(model => model.First().PropertyName)</span></h1> *@
+    <a asp-action="RegisterReview" asp-controller="Review" class="btn btn-primary rounded-pill py-3 px-5">Escribir reseña</a>
 
     <div class="mt-5">
         @foreach (var item in Model)
@@ -12,25 +20,37 @@
                 @if (item.ReviewStar < 2.0)
                 {
                     <div class="card-img-left d-flex justify-content-center align-items-center" style="background-color:#f25263; height:200px; width: 200px;">
-                        <div class="display-2">@Html.DisplayFor(modelItem => item.ReviewStar)</div>
+                        <div class="display-2">@item.ReviewStar</div>
                     </div>
                 }
                 else if (item.ReviewStar > 2.1 && item.ReviewStar < 3.5)
                 {
                     <div class="card-img-left d-flex justify-content-center align-items-center" style="background-color:#ffd30a; height:200px; width: 200px;">
-                        <div class="display-2">@Html.DisplayFor(modelItem => item.ReviewStar)</div>
+                        <div class="display-2">@item.ReviewStar</div>
                     </div>
                 } else
                 {
                     <div class="card-img-left d-flex justify-content-center align-items-center" style="background-color:#46f432; height:200px; width: 200px;">
-                        <div class="display-2">@Html.DisplayFor(modelItem => item.ReviewStar)</div>
+                        <div class="display-2">@item.ReviewStar</div>
                     </div>
-                    
                 }
 
                 <div class="card-body">
                     <h4 class="card-title h5 h4-sm mb-3">@Html.DisplayFor(modelItem => item.PropertyName)</h4>
-                    <div class="card-text property-reviews mb-2">★★★☆☆ @Html.DisplayFor(modelItem => item.ReviewStar)</div>
+                    <div class="card-text property-reviews mb-2">
+                        @{
+                            double rating = item.ReviewStar;
+                            int numberOfFilledStars = (int)Math.Round(rating);
+                            int numberOfUnfilledStars = 5 - numberOfFilledStars;
+                        }
+                        @{
+                            string filledStars = new string('★', numberOfFilledStars);
+                            string unfilledStars = new string('☆', numberOfUnfilledStars);
+                        }
+                        <span>@Html.Raw(filledStars + unfilledStars)</span>
+                        <span>@item.ReviewStar</span>
+                    </div>
+
                     <p class="card-text">@Html.DisplayFor(modelItem => item.ReviewComment)</p>
                 </div>
             </div>

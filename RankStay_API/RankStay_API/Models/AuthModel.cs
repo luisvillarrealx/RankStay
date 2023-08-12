@@ -15,6 +15,15 @@ namespace RankStay_API.Models
             _configuration = configuration;
         }
 
+        public bool EmailExists(string UserEmail)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                var sqlQuery = connection.Query<UserObj>("SELECT * FROM USERS WHERE UserEmail = @UserEmail", new { UserEmail }).ToList();
+                return sqlQuery.Any();
+            }
+        }
+
         public int ResetPassword(UserObj user)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
