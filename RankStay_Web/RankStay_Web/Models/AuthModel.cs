@@ -13,7 +13,6 @@ namespace RankStay_Web.Models
                 string urlApi = "https://localhost:7216/api/Auth/Login";
                 JsonContent content = JsonContent.Create(userObj);
                 HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
-
                 return (response.IsSuccessStatusCode) ? response.Content.ReadFromJsonAsync<UserObj>().Result : null;
             }
         }
@@ -37,15 +36,14 @@ namespace RankStay_Web.Models
             }
         }
 
-        public string Signup(UserObj userObj)
+        public async Task<string> Signup(UserObj userObj)
         {
             using (var access = new HttpClient())
             {
                 string urlApi = "https://localhost:7216/api/Auth/Signup";
                 JsonContent content = JsonContent.Create(userObj);
-                HttpResponseMessage response = access.PostAsync(urlApi, content).GetAwaiter().GetResult();
-
-                return (response.IsSuccessStatusCode) ? "OK" : string.Empty;
+                HttpResponseMessage response = await access.PostAsync(urlApi, content);
+                return response.IsSuccessStatusCode ? "OK" : string.Empty;
             }
         }
     }

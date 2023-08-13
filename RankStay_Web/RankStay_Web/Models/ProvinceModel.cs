@@ -13,14 +13,9 @@ namespace RankStay_Web.Models
             using (var access = new HttpClient())
             {
                 HttpResponseMessage response = await access.GetAsync("https://localhost:7216/api/Province/getProvinces");
-                if (response.IsSuccessStatusCode)
-                {
-                    string resultstr = await response.Content.ReadAsStringAsync();
-                    List<ProvinceObj>? list = JsonConvert.DeserializeObject<List<ProvinceObj>>(resultstr);
-                    return list ?? new List<ProvinceObj>();
-                }
-
-                return new List<ProvinceObj>();
+                string resultstr = await response.Content.ReadAsStringAsync();
+                List<ProvinceObj>? list = JsonConvert.DeserializeObject<List<ProvinceObj>>(resultstr);
+                return list ?? new List<ProvinceObj>();
             }
         }
 

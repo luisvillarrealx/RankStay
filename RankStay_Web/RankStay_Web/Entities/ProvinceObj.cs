@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace RankStay_Web.Entities
+﻿namespace RankStay_Web.Entities
 {
     public class ProvinceObj
     {

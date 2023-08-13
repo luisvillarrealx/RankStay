@@ -40,7 +40,7 @@ namespace RankStay_API.Controllers
             try
             {
                 var data = _authModel.Login(userObj);
-                return (data != null) ? Ok(data) : BadRequest();
+                return data != null ? Ok(data) : BadRequest();
             }
             catch (Exception ex)
             {
@@ -50,9 +50,10 @@ namespace RankStay_API.Controllers
 
         [HttpPost]
         [Route("Signup")]
-        public ActionResult Signup(UserObj userObj)
+        public ActionResult<UserObj> Signup(UserObj userObj)
         {
-            return _authModel.Signup(userObj) > 0 ? Ok() : BadRequest();
+            var data = _authModel.Signup(userObj);
+            return data > 0 ? Ok(data) : BadRequest();
         }
     }
 }

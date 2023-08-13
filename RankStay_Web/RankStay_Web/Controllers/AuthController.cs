@@ -6,9 +6,8 @@ namespace RankStay_Web.Controllers
 {
     public class AuthController : Controller
     {
-        readonly UserObj userObj = new();
-        readonly UserModel usermodel = new();
-        readonly AuthModel authModel = new();
+        readonly UserModel _userModel = new();
+        readonly AuthModel _authModel = new();
 
         [HttpGet]
         public IActionResult Login()
@@ -21,24 +20,24 @@ namespace RankStay_Web.Controllers
         {
             try
             {
-                userObj.UserName = "luis";
-                userObj.UserLastName1 = "Villarreal";
-                userObj.UserLastName2 = "Retes";
-                userObj.UserRole = 1;
-                var result = authModel.Login(userObj);
+                userObj.UserName = "name";
+                userObj.UserLastName1 = "lastname1";
+                userObj.UserLastName2 = "lastname1";
+                userObj.UserRole = 2;
+                var result = _authModel.Login(userObj);
                 if (result != null)
                 {
-                    HttpContext.Session.SetString("UserEmail", result.UserEmail);
-                    HttpContext.Session.SetString("UserName", result.UserName);
-                    HttpContext.Session.SetString("UserLastName1", result.UserLastName1);
-                    HttpContext.Session.SetString("UserLastName2", result.UserLastName2);
-                    HttpContext.Session.SetString("UserRole", result.UserRole.ToString());
-                    return RedirectToAction("index", "home");
+                    HttpContext.Session.SetString("UserEmail", result.UserEmail ?? "");
+                    HttpContext.Session.SetString("UserName", result.UserName ?? "");
+                    HttpContext.Session.SetString("UserLastName1", result.UserLastName1 ?? "");
+                    HttpContext.Session.SetString("UserLastName2", result.UserLastName2 ?? "");
+                    HttpContext.Session.SetString("UserRole", result.UserRole.ToString() ?? "2");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ViewBag.MsjError = "La información indicada es incorrecta.";
-                    return View("login");
+                    return View("Login");
                 }
             }
             catch
@@ -56,19 +55,12 @@ namespace RankStay_Web.Controllers
         [HttpPost]
         public IActionResult Signup(UserObj userObj)
         {
-            userObj.UserName = "luis";
-            userObj.UserLastName1 = "Villarreal";
-            userObj.UserLastName2 = "Retes";
-            userObj.UserRole = 1;
-
-            if (authModel.Signup(userObj) != string.Empty)
-            {
-                return RedirectToAction("login", "Auth");
-            }
-            else
-            {
-                return View();
-            }
+            userObj.UserName = "name";
+            userObj.UserLastName1 = "lastname1";
+            userObj.UserLastName2 = "lastname2";
+            userObj.UserRole = 2;
+            return _authModel.Signup(userObj) != null
+                ? RedirectToAction("Login", "Auth") : View();
         }
 
         public IActionResult Forgot()
@@ -86,8 +78,8 @@ namespace RankStay_Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Forgot(UserObj userObj)
         {
-            await authModel.ResetPassword(userObj);
-            return RedirectToAction("login", "auth");
+            await _authModel.ResetPassword(userObj);
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

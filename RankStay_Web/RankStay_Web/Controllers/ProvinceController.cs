@@ -10,20 +10,21 @@ namespace RankStay_Web.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Provinces()
-            {
+        {
             return View(await _provinceModel.GetListProvinces());
         }
         
         [HttpGet]
         public IActionResult RegisterProvince()
-            {
+        {
             return View();
         }
 
         [HttpPost]
         public ActionResult RegisterProvince(ProvinceObj provinceObj)
         {
-            return _provinceModel.RegisterProvince(provinceObj) != null ? RedirectToAction("Index", "Home") : View();
+            return _provinceModel.RegisterProvince(provinceObj) != null 
+                ? RedirectToAction("Index", "Home") : View();
         }
     }
 }

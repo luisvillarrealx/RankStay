@@ -82,8 +82,7 @@ namespace RankStay_API.Models
                     {
                         userObj.UserEmail,
                         userObj.UserPassword
-                    },
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    }, commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
         public int Signup(UserObj userObj)
@@ -98,6 +97,5 @@ namespace RankStay_API.Models
                     }, commandType: CommandType.StoredProcedure);
             }
         }
-
     }
 }

@@ -43,11 +43,8 @@
         <div class="container py-3">
             <div class="d-flex align-items-center">
                 <h2>
-                    @Html.ActionLink("RankStay", "Index", "Home", null, new { @class="text-white fw-bold m-0"})
+                    <a asp-action="Index" asp-controller="Home" class="text-white fw-bold m-0">RankStay</a>
                 </h2>
-                @*<a href="index.html">
-                <h2 class="text-white fw-bold m-0">RankStay</h2>
-                </a>*@
                 <div class="ms-auto d-flex align-items-center">
                     <small class="ms-4"><i class="fa fa-map-marker-alt me-3"></i>10109 Rohrmoser, San José, CR</small>
                     <small class="ms-4"><i class="fa fa-envelope me-3"></i>info@rankstay.com</small>
@@ -70,26 +67,25 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav">
-                        @Html.ActionLink("Inicio", "Index", "Home", null, new { @class="nav-item nav-link active"})
-                        @Html.ActionLink("Nosotros", "About", "Nav", null, new { @class="nav-item nav-link"})
-                        @Html.ActionLink("Servicios", "Services", "Nav", null, new { @class="nav-item nav-link"})
-                        @Html.ActionLink("Proyectos", "Projects", "Nav", null, new { @class="nav-item nav-link"})
+                        <a asp-action="Index" asp-controller="Home" class="nav-item nav-link active">Inicio</a>
+                        <a asp-action="About" asp-controller="Nav" class="nav-item nav-link">Nosotros</a>
+                        <a asp-action="Services" asp-controller="Nav" class="nav-item nav-link">Servicios</a>
+                        <a asp-action="Projects" asp-controller="Nav" class="nav-item nav-link">Proyectos</a>
+
                         @if (UserRole == 1)
                         {
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
                                 <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
-                                    @Html.ActionLink("Usuarios", "Users", "User", null, new { @class="dropdown-item"})
-                                    @Html.ActionLink("Provincias", "Provinces", "Province", null, new { @class="dropdown-item"})
-                                    @Html.ActionLink("Reseñas", "Reviews", "Review", null, new { @class="dropdown-item"})
+                                    <a asp-action="Users" asp-controller="User" class="dropdown-item">Usuarios</a>
+                                    <a asp-action="Provinces" asp-controller="Province" class="dropdown-item">Provincias</a>
+                                    <a asp-action="Reviews" asp-controller="Review" class="dropdown-item">Reseñas</a>
                                 </div>
                             </div>
                         }
                     </div>
                     <div class="ms-auto d-none d-lg-block">
-                        <a href="@Url.Action("login", "auth", null)" class="btn btn-primary rounded-pill py-2 px-3">
-                            @*<i class="fa-solid fa-arrow-right"></i>*@ Salir
-                        </a>
+                        <a asp-action="Login" asp-controller="Auth" class="btn btn-primary rounded-pill py-2 px-3">Salir</a>
                     </div>
                 </div>
             </nav>

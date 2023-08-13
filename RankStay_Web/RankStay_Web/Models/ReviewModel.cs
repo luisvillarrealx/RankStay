@@ -6,7 +6,6 @@ namespace RankStay_Web.Models
     public class ReviewModel
     {
         public string? lblmsj { get; set; }
-        public List<ReviewObj> listReview = new();
 
         public async Task<List<ReviewObj>> GetListReviews()
         {

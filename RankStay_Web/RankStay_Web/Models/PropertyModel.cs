@@ -6,7 +6,6 @@ namespace RankStay_Web.Models
     public class PropertyModel
     {
         public string? lblmsj { get; set; }
-        public List<PropertyObj> listProperty = new();
 
         public async Task<string> RegisterProperty(PropertyObj propertyObj)
         {
@@ -45,35 +44,10 @@ namespace RankStay_Web.Models
         {
             using (var client = new HttpClient())
             {
-                string urlApi = $"https://localhost:7216/api/Property/GetPropertiesByProvince/{provinceId}";
-
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(urlApi);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string resultStr = await response.Content.ReadAsStringAsync();
-                        List<PropertyObj> reviews = JsonConvert.DeserializeObject<List<PropertyObj>>(resultStr);
-                        return reviews;
-                    }
-                    else
-                    {
-                        throw new Exception();
-                        // Handle non-success status code if needed.
-                        // For example: Log the error, throw an exception, etc.
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Log or inspect the exception details
-                    Console.WriteLine("Exception: " + ex.Message);
-                    // Optional: Log the stack trace for more detailed information
-                    Console.WriteLine("Stack Trace: " + ex.StackTrace);
-                    throw; // Re-throw the exception to propagate it further if needed
-                }
-
-                return new List<PropertyObj>(); // Return an empty list on failure.
+                HttpResponseMessage response = await client.GetAsync($"https://localhost:7216/api/Property/GetPropertiesByProvince/{provinceId}");
+                string resultStr = await response.Content.ReadAsStringAsync();
+                List<PropertyObj>? reviews = JsonConvert.DeserializeObject<List<PropertyObj>>(resultStr);
+                return reviews ?? new List<PropertyObj>();
             }
         }
     }
