@@ -1,0 +1,29 @@
+﻿@model RankStay_Web.Entities.ProvinceObj
+
+<!-- Register Province Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 wow fadeInUp card p-5" data-wow-delay="0.5s">
+                <h2 class="mb-4">Agregar nueva provincia</h2>
+                <form method="post" asp-action="RegisterProvince" asp-controller="Province" class="form-box px-3">
+                    <div class="row g-3">
+                        <div class="col-sm-12">
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <label asp-for="ProvinceName">Nombre de la provincia</label>
+                                <input asp-for="ProvinceName" class="form-control" name="provinceObj.ProvinceName" placeholder="Nombre de la provincia" id="province" required />
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary w-100 py-3" type="submit">Agregar</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Register Province Start -->

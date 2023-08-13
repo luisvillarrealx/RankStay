@@ -28,7 +28,14 @@ namespace RankStay_Web.Controllers
         [HttpGet("Property/Property/{propertyId}")]
         public async Task<IActionResult> Property(int propertyId)
         {
-            return View(await reviewModel.GetReviewsByProperty(propertyId));
+            try
+            {
+                return View(await reviewModel.GetReviewsByProperty(propertyId));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while fetching reviews: " + ex.Message);
+            }
         }
     }
 }

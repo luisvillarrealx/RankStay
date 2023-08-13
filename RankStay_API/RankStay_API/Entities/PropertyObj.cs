@@ -8,5 +8,6 @@
         public string? PropertyName { get; set; }
         public string? PropertyDescription { get; set; }
         public int? PropertyUserId { get; set; }
+        public double? AverageReviewStar { get; set; }
     }
 }

@@ -19,9 +19,29 @@
                 <div class="card flex-row mb-4">
                     <img class="card-img-left" src="https://holidayhome.stayfritz.com/_published/stayfritz/1047387/274c034d-515b-4a24-a8a0-8d8ecfd1baf4/thumbnail_xs.webp" style="width: 200px; border-radius: 5px 0 0 5px" alt="loft" />
                     <div class="card-body">
-                    <h4 class="card-title h5 h4-sm mb-3">@Html.DisplayFor(modelItem => item.PropertyName)</h4>
-                        <div class="card-text property-reviews mb-2">★★★☆☆ 3/5</div>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.PropertyDescription)</p>
+                        <h4 class="card-title h5 h4-sm mb-3">@item.PropertyName</h4>
+                        <div class="card-text property-reviews mb-2">
+                            @if (item.AverageReviewStar.HasValue)
+                            {
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    if (i < (int)item.AverageReviewStar)
+                                    {
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="bi bi-star"></span>
+                                    }
+                                }
+                                <span>@item.AverageReviewStar / 5</span>
+                            }
+                            else
+                            {
+                                <span>Sin reseñas registradas</span>
+                            }
+                        </div>
+                        <p class="card-text">@item.PropertyDescription</p>
                     </div>
                 </div>
             </a>

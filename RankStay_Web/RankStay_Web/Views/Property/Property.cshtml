@@ -8,7 +8,7 @@
     }
     else
     {
-        <h1>No hay reseñas registradas en esta provincia</h1>
+        <h1>No hay reseñas registradas en esta propiedad</h1>
     }
     @* <h1>Reseñas de <span class="text-primary">@Html.DisplayFor(model => model.First().PropertyName)</span></h1> *@
     <a asp-action="RegisterReview" asp-controller="Review" class="btn btn-primary rounded-pill py-3 px-5">Escribir reseña</a>
@@ -36,23 +36,35 @@
                 }
 
                 <div class="card-body">
-                    <h4 class="card-title h5 h4-sm mb-3">@Html.DisplayFor(modelItem => item.PropertyName)</h4>
+                    <h4 class="card-title h5 h4-sm mb-3">@item.PropertyName</h4>
                     <div class="card-text property-reviews mb-2">
                         @{
-                            double rating = item.ReviewStar;
-                            int numberOfFilledStars = (int)Math.Round(rating);
+                            double? rating = item.ReviewStar;
+                            int numberOfFilledStars = rating.HasValue ? (int)Math.Round(rating.Value) : 0;
                             int numberOfUnfilledStars = 5 - numberOfFilledStars;
                         }
-                        @{
-                            string filledStars = new string('★', numberOfFilledStars);
-                            string unfilledStars = new string('☆', numberOfUnfilledStars);
+                        <span>
+                            @for (int i = 0; i < numberOfFilledStars; i++)
+                            {
+                                <span class="bi bi-star-fill"></span>
+                            }
+                            @for (int i = 0; i < numberOfUnfilledStars; i++)
+                            {
+                                <span class="bi bi-star"></span>
+                            }
+                        </span>
+                        @if (rating.HasValue)
+                        {
+                            <span>@rating</span>
                         }
-                        <span>@Html.Raw(filledStars + unfilledStars)</span>
-                        <span>@item.ReviewStar</span>
+                        else
+                        {
+                            <span>No rating</span>
+                        }
                     </div>
-
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.ReviewComment)</p>
+                    <p class="card-text">@item.ReviewComment</p>
                 </div>
+
             </div>
         }
     </div>

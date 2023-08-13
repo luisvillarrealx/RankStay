@@ -29,7 +29,7 @@ Go to `SQL/RankStay_script.sql` and execute the script in the <a href="https://l
 
 <img src="README/rankstaydata.png" title="RankStay database" />
 
-Once you have the database locally, go to `RankStay_API/RankStay_API` and make sure your `appsettings.json` file should looks like this:
+Once you have the database locally, go to `RankStay_API/RankStay_API` and make sure your `appsettings.json` file looks like this:
 
 *Note: server={SERVER\\\NAME};*
 

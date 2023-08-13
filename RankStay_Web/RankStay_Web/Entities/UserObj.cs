@@ -16,6 +16,7 @@
         public string? UserPassword { get; set; }
 
         public int UserRole { get; set; }
+        public string? RoleName { get; set; }
     }
 }
 

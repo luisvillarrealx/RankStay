@@ -19,13 +19,10 @@ namespace RankStay_Web.Controllers
         {
             try
             {
-                var reviews = await propertyModel.GetPropertiesByProvince(provinceId);
-                return View(reviews);
+                return View(await propertyModel.GetPropertiesByProvince(provinceId));
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message);
-                Console.WriteLine("Stack Trace: " + ex.StackTrace);
                 return StatusCode(500, "An error occurred while fetching provinces: " + ex.Message);
             }
         }

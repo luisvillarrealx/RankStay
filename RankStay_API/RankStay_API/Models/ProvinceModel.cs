@@ -29,5 +29,17 @@ namespace RankStay_API.Models
                 return connection.Query<ProvinceObj>("SP_GetProvinces", commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public int RegisterProvince(ProvinceObj provinceObj)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                return connection.Execute("SP_RegisterProvince",
+                    new
+                    {
+                        provinceObj.ProvinceName,
+                    }, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

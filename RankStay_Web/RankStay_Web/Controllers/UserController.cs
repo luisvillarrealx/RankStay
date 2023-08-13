@@ -12,5 +12,11 @@ namespace RankStay_Web.Controllers
         {
             return View(await _userModel.GetListUsers());
         }
+
+        [HttpGet]
+        public IActionResult EditUser()
+        {
+            return View();
+        }
     }
 }

@@ -10,7 +10,9 @@
                     </div>
                     <div class="card-body table-responsive">
                         <div class="pb-2">
-                            <a asp-action="RegisterReview" asp-controller="Review" class="btn btn-primary ml-auto">Agregar</a>
+                            <a asp-action="RegisterReview" asp-controller="Review" class="btn btn-primary ml-auto">
+                                <i class="bi bi-plus"></i> Agregar
+                            </a>
                         </div>
                         <table id="Table" class="table table-bordered table-hover table-striped">
                             <thead>
@@ -19,25 +21,22 @@
                                     <th>Propiedad</th>
                                     <th>Comentario</th>
                                     <th>Calificación</th>
-                                    <th class="text-center">Acciones</th>
+                                    <th class="text-center">Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@item.ReviewId)</td>
-                                        <td>@item.PropertyName)</td>
-                                        <td>@item.ReviewComment)</td>
-                                        <td>@item.ReviewStar)</td>
-                                        <td class="text-center">>></td>
-                                        @*
+                                        <td>@item.ReviewId</td>
+                                        <td>@item.PropertyName</td>
+                                        <td>@item.ReviewComment</td>
+                                        <td>@item.ReviewStar</td>
                                         <td class="text-center col-1">
-                                        <a asp-action="EditUser" asp-controller="User" asp-route-ID="@item.userId" class="btn btn-primary px-2">
-                                        <i class="fas fa-angle-double-right"></i>
-                                        </a>
+                                            <a asp-action="EditUser" asp-controller="User" asp-route-ID="@item.ReviewId" class="btn btn-danger px-2">
+                                            <i class="fas fa-trash"></i>
+                                            </a>
                                         </td>
-                                        *@
                                     </tr>
                                 }
                             </tbody>

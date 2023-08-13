@@ -23,5 +23,12 @@ namespace RankStay_API.Controllers
         {
             return _provinceModel.GetListProvince();
         }
+
+        [HttpPost]
+        [Route("RegisterProvince")]
+        public ActionResult RegisterProvince(ProvinceObj provinceObj)
+        {
+            return _provinceModel.RegisterProvince(provinceObj) > 0 ? Ok() : BadRequest();
+        }
     }
 }

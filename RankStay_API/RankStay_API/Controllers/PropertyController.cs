@@ -42,8 +42,8 @@ namespace RankStay_API.Controllers
         {
             try
             {
-            var properties = _propertyModel.GetPropertiesByProvince(provinceId);
-            return properties != null ? properties : NotFound();
+                var properties = _propertyModel.GetPropertiesByProvince(provinceId);
+                return properties != null ? properties : NotFound();
             }
             catch (Exception ex)
             {

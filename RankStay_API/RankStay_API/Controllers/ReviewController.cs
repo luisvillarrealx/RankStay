@@ -39,7 +39,7 @@ namespace RankStay_API.Controllers
             try
             {
                 var reviews = _reviewModel.GetReviewsByProperty(propertyId);
-                return reviews.Count != 0 ? Ok(reviews) : BadRequest();
+                return reviews != null ? reviews : NotFound();
             }
             catch (Exception ex)
             {
