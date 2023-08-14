@@ -305,6 +305,7 @@ BEGIN
     PROPERTIES.PropertyId,
     PROPERTIES.PropertyProvinceId,
     PROVINCES.ProvinceName,
+    PROVINCES.ProvincePhoto,
     PROPERTIES.PropertyName,
     PROPERTIES.PropertyDescription,
     PROPERTIES.PropertyUserId,
@@ -325,6 +326,7 @@ GROUP BY
     PROPERTIES.PropertyId,
     PROPERTIES.PropertyProvinceId,
     PROVINCES.ProvinceName,
+    PROVINCES.ProvincePhoto,
     PROPERTIES.PropertyName,
     PROPERTIES.PropertyDescription,
     PROPERTIES.PropertyUserId;

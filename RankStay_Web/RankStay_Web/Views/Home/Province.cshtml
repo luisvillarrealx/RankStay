@@ -1,6 +1,37 @@
 ﻿@model List<RankStay_Web.Entities.PropertyObj>
 
+@*Hero*@
+<div class="hero" style="background: #000 url('/img/src/@Html.DisplayFor(model => model.First().ProvincePhoto)') center center no-repeat; background-size: cover; position: relative;">
+    <div class="container">
+        <div class="hero-content">
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Model.Any())
+                    {
+                        <h1>
+                            <span class="hero-title">Propiedades registradas en </span>
+                            <span class="text-primary">@Html.DisplayFor(model => model.First().ProvinceName)</span>
+                        </h1>
+                    }
+                    else
+                    {
+                        <h1>No hay propiedades registradas en esta provincia</h1>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <p>Selecciona una propiedad para conocer sus calificaciones</p>
+                </div>
+                @*<div class="col-md-6">
+                    <p>Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image Bootstrap Hero Image</p>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+@*Hero*@
+
 <div class="container-xxl pt-5 mb-5">
+    @*<img src="/img/src/@Html.DisplayFor(model => model.First().ProvincePhoto)"/>
     @if (Model.Any())
     {
         <h1>Propiedades registradas en <span class="text-primary">@Html.DisplayFor(model => model.First().ProvinceName)</span></h1>
@@ -9,7 +40,7 @@
     {
         <h1>No hay propiedades registradas en esta provincia</h1>
     }
-    <p>Selecciona una propiedad para conocer sus calificaciones</p>
+    <p>Selecciona una propiedad para conocer sus calificaciones</p>*@
     <a asp-action="RegisterProperty" asp-controller="Property" class="btn btn-primary rounded-pill py-3 px-5">Agregar propiedad</a>
 
     <div class="mt-5">
