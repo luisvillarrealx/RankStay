@@ -38,5 +38,16 @@ namespace RankStay_Web.Models
                 return response.IsSuccessStatusCode ? "OK" : string.Empty;
             }
         }
+
+        public async Task<string> DeleteReview(int reviewId)
+        {
+            using (var access = new HttpClient())
+            {
+                string urlApi = "https://localhost:7216/api/Review/DeleteReview";
+                JsonContent content = JsonContent.Create(reviewId);
+                HttpResponseMessage response = await access.PostAsync(urlApi, content);
+                return response.IsSuccessStatusCode ? "OK" : string.Empty;
+            }
+        }
     }
 }

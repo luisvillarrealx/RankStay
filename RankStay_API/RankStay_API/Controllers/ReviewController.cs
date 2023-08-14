@@ -46,5 +46,12 @@ namespace RankStay_API.Controllers
                 return StatusCode(500, "An error occurred while fetching reviews." + ex.Message);
             }
         }
+
+        [HttpDelete]
+        [Route("DeleteReview")]
+        public ActionResult DeleteReview(ReviewObj reviewObj)
+        {
+            return (_reviewModel.DeleteReview(reviewObj) > 0) ? Ok() : BadRequest();
+        }
     }
 }

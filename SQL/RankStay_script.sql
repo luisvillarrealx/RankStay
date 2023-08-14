@@ -11,7 +11,8 @@ RoleName VARCHAR(30) NOT NULL
 
 CREATE TABLE [dbo].[PROVINCES](
 ProvinceId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-ProvinceName VARCHAR(30) NOT NULL
+ProvinceName VARCHAR(30) NOT NULL,
+ProvinceDescription VARCHAR(200)
 );
 
 -- Tables with FOREIGN KEY
@@ -45,33 +46,45 @@ FOREIGN KEY (ReviewPropertyId) REFERENCES PROPERTIES(PropertyId)
 );
 
 -- Inserts
-INSERT INTO [dbo].[ROLES]([RoleName])
-VALUES ('Admin'), ('User');
+INSERT INTO [dbo].[ROLES]
+                ([RoleName])
+VALUES
+    ('Admin')
+    ,('User');
 GO
 
-INSERT INTO [dbo].[PROVINCES]([ProvinceName])
-VALUES ('San José'), ('Alajuela'), ('Cartago'), ('Heredia'), ('Guanacaste'), ('Puntarenas'), ('Limón');
+INSERT INTO [dbo].[PROVINCES]
+                ([ProvinceName]
+                ,[ProvinceDescription])
+VALUES
+    ('San José', 'La capital y ciudad más grande de Costa Rica.')
+    ,('Alajuela', 'Conocida por sus hermosos paisajes y el Aeropuerto Internacional Juan Santamaría.')
+    ,('Cartago', 'Históricamente significativa y antigua capital de Costa Rica.')
+    ,('Heredia', 'Famosa por sus plantaciones de café y una vibrante escena cultural.')
+    ,('Guanacaste', 'Famosa por sus impresionantes playas y parques nacionales.')
+    ,('Puntarenas', 'Una provincia costera con una diversidad de vida marina y atracciones turísticas.')
+    ,('Limón', 'Situada en la costa caribeña, conocida por su cultura afrocaribeña y belleza natural.')
 GO
 
 INSERT INTO [dbo].[USERS]
-           ([UserName]
-           ,[UserLastName1]
-           ,[UserLastName2]
-           ,[UserEmail]
-           ,[UserPassword]
-           ,[UserRole])
+                ([UserName]
+                ,[UserLastName1]
+                ,[UserLastName2]
+                ,[UserEmail]
+                ,[UserPassword]
+                ,[UserRole])
 VALUES
-('Luis', 'Villarreal', 'Retes', 'lvillarreal00332@ufide.ac.cr', '00332',1)
-,('Luis', 'Navarro' ,'Murillo', 'lnavarro70469@ufide.ac.cr', '70469', 2)
-,('Bryan', 'Rojas', 'Chacón', 'brojas30828@ufide.ac.cr', '30828', 2)
-,('Norlan', 'González', 'Quesada', 'ngonzalez40383@ufide.ac.cr', '40383', 2)
+    ('Luis', 'Villarreal', 'Retes', 'lvillarreal00332@ufide.ac.cr', '00332',1)
+    ,('Luis', 'Navarro' ,'Murillo', 'lnavarro70469@ufide.ac.cr', '70469', 2)
+    ,('Bryan', 'Rojas', 'Chacón', 'brojas30828@ufide.ac.cr', '30828', 2)
+    ,('Norlan', 'González', 'Quesada', 'ngonzalez40383@ufide.ac.cr', '40383', 2)
 GO
 
 INSERT INTO [dbo].[PROPERTIES]
-           ([PropertyProvinceId]
-           ,[PropertyName]
-           ,[PropertyDescription]
-           ,[PropertyUserId])
+                ([PropertyProvinceId]
+                ,[PropertyName]
+                ,[PropertyDescription]
+                ,[PropertyUserId])
 VALUES
     (1, 'Residencial San José', 'Residencial privado cerca de La Sabana', 1)
     ,(1, 'Bosques de San José', 'Apartamentos amplios', 2)
@@ -103,32 +116,32 @@ VALUES
     ,(7, 'Apartamentos Limón', 'Apartamentos tipo studio', 4)
 GO
 
-INSERT INTO [dbo].[dbo].[REVIEWS]
-           ([ReviewPropertyId]
-           ,[ReviewComment]
-           ,[ReviewStar])
+INSERT INTO [dbo].[REVIEWS]
+                ([ReviewPropertyId]
+                ,[ReviewComment]
+                ,[ReviewStar])
 VALUES
     (1,'Excelente en general',5)
     ,(1,'Buena',4)
     ,(1,'Regular',3)
     ,(1,'Mala',2)
     ,(1,'Muy mala',1)
-    ,(2,'Excelente en general',5)
-    ,(2,'Buena',4)
-    ,(2,'Regular',3)
+    ,(2,'Excelente en general',3)
+    ,(2,'Buena',1)
+    ,(2,'Regular',5)
     ,(2,'Mala',2)
     ,(2,'Muy mala',1)
-    ,(3,'Excelente en general',5)
-    ,(3,'Buena',4)
+    ,(3,'Excelente en general',2)
+    ,(3,'Buena',5)
     ,(3,'Regular',3)
     ,(3,'Mala',2)
     ,(3,'Muy mala',1)
-    ,(4,'Excelente en general',5)
-    ,(4,'Buena',4)
+    ,(4,'Excelente en general',1)
+    ,(4,'Buena',2)
     ,(4,'Regular',3)
     ,(4,'Mala',2)
     ,(4,'Muy mala',1)
-    ,(5,'Excelente en general',5)
+    ,(5,'Excelente en general',4)
     ,(5,'Buena',4)
     ,(5,'Regular',3)
     ,(5,'Mala',2)
@@ -151,7 +164,7 @@ CREATE OR ALTER PROCEDURE [dbo].[SP_SignUp]
 @UserPassword VARCHAR(25)
 AS
 BEGIN
-INSERT INTO [dbo].[USERS]([UserEmail], [UserPassword], [UserRole])
+    INSERT INTO [dbo].[USERS]([UserEmail], [UserPassword], [UserRole])
 VALUES(@UserEmail, @UserPassword, 2);
 END;
 GO
@@ -161,12 +174,12 @@ CREATE OR ALTER PROCEDURE [dbo].[SP_LogIn]
 @userPassword VARCHAR(MAX)
 AS 
 BEGIN 
-SELECT * 
-FROM [dbo].[USERS]
-WHERE 
-UserEmail = @userEmail
-AND
-UserPassword = @userPassword; 
+    SELECT * 
+        FROM [dbo].[USERS]
+    WHERE 
+        UserEmail = @userEmail
+    AND
+        UserPassword = @userPassword; 
 END;
 GO
 
@@ -187,6 +200,7 @@ BEGIN
     SELECT
         P.ProvinceId,
         P.ProvinceName,
+        P.ProvinceDescription,
         COUNT(PROP.PropertyId) AS PropertyCount
     FROM
         [dbo].[PROVINCES] P
@@ -194,7 +208,8 @@ BEGIN
         [dbo].[PROPERTIES] PROP ON P.ProvinceId = PROP.PropertyProvinceId
     GROUP BY
         P.ProvinceId,
-        P.ProvinceName
+        P.ProvinceName,
+        P.ProvinceDescription
 END
 GO
 
@@ -318,7 +333,7 @@ CREATE OR ALTER   PROCEDURE [dbo].[SP_RegisterReview]
 @ReviewStar FLOAT
 AS
 BEGIN
-INSERT INTO [dbo].[REVIEWS]([ReviewPropertyId], [ReviewComment], [ReviewStar])
+    INSERT INTO [dbo].[REVIEWS]([ReviewPropertyId], [ReviewComment], [ReviewStar])
 VALUES(@ReviewPropertyId, @ReviewComment, @ReviewStar);
 END;
 GO
@@ -327,7 +342,15 @@ CREATE OR ALTER   PROCEDURE [dbo].[SP_RegisterProvince]
 @ProvinceName VARCHAR(30)
 AS
 BEGIN
-INSERT INTO [dbo].[PROVINCES]([ProvinceName])
+    INSERT INTO [dbo].[PROVINCES]([ProvinceName])
 VALUES(@ProvinceName);
 END;
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[SP_DeleteReview]
+@ReviewId INT
+AS
+BEGIN
+    DELETE FROM [dbo].[REVIEWS] WHERE ReviewId = @ReviewId;
+END
 GO

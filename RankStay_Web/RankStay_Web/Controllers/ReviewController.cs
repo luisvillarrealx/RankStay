@@ -28,5 +28,12 @@ namespace RankStay_Web.Controllers
             return _reviewModel.RegisterReview(reviewObj) != null 
                 ? RedirectToAction("Index", "Home") : View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteReview(int reviewId)
+        {
+            return await _reviewModel.DeleteReview(reviewId) != null
+                ? RedirectToAction("Review", "Reviews") : View();
+        }
     }
 }

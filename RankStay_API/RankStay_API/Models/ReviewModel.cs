@@ -44,5 +44,17 @@ namespace RankStay_API.Models
                 return connection.Query<ReviewObj>("SP_GetReviewsByProperty", new { ReviewPropertyId = propertyId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public int DeleteReview(ReviewObj reviewObj)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                return connection.Execute("SP_DeleteReview",
+                    new
+                    {
+                        reviewObj.ReviewId,
+                    }, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }
