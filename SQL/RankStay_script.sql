@@ -12,7 +12,8 @@ RoleName VARCHAR(30) NOT NULL
 CREATE TABLE [dbo].[PROVINCES](
 ProvinceId INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 ProvinceName VARCHAR(30) NOT NULL,
-ProvinceDescription VARCHAR(200)
+ProvinceDescription VARCHAR(200),
+ProvincePhoto VARCHAR(30)
 );
 
 -- Tables with FOREIGN KEY
@@ -55,15 +56,16 @@ GO
 
 INSERT INTO [dbo].[PROVINCES]
                 ([ProvinceName]
-                ,[ProvinceDescription])
+                ,[ProvinceDescription]
+                ,[ProvincePhoto])
 VALUES
-    ('San José', 'La capital y ciudad más grande de Costa Rica.')
-    ,('Alajuela', 'Conocida por sus hermosos paisajes y el Aeropuerto Internacional Juan Santamaría.')
-    ,('Cartago', 'Históricamente significativa y antigua capital de Costa Rica.')
-    ,('Heredia', 'Famosa por sus plantaciones de café y una vibrante escena cultural.')
-    ,('Guanacaste', 'Famosa por sus impresionantes playas y parques nacionales.')
-    ,('Puntarenas', 'Una provincia costera con una diversidad de vida marina y atracciones turísticas.')
-    ,('Limón', 'Situada en la costa caribeña, conocida por su cultura afrocaribeña y belleza natural.')
+    ('San José', 'La capital y ciudad más grande de Costa Rica.', 'sanjose.jpg')
+    ,('Alajuela', 'Conocida por sus hermosos paisajes y el Aeropuerto Internacional Juan Santamaría.', 'alajuela.jpg')
+    ,('Cartago', 'Históricamente significativa y antigua capital de Costa Rica.', 'cartago.jpg')
+    ,('Heredia', 'Famosa por sus plantaciones de café y una vibrante escena cultural.', 'heredia.jpg')
+    ,('Guanacaste', 'Famosa por sus impresionantes playas y parques nacionales.', 'guanacaste.jpg')
+    ,('Puntarenas', 'Una provincia costera con una diversidad de vida marina y atracciones turísticas.', 'puntarenas.jpg')
+    ,('Limón', 'Situada en la costa caribeña, conocida por su cultura afrocaribeña y belleza natural.', 'limon.jpg')
 GO
 
 INSERT INTO [dbo].[USERS]
@@ -201,6 +203,7 @@ BEGIN
         P.ProvinceId,
         P.ProvinceName,
         P.ProvinceDescription,
+        P.ProvincePhoto,
         COUNT(PROP.PropertyId) AS PropertyCount
     FROM
         [dbo].[PROVINCES] P
@@ -209,7 +212,8 @@ BEGIN
     GROUP BY
         P.ProvinceId,
         P.ProvinceName,
-        P.ProvinceDescription
+        P.ProvinceDescription,
+		P.ProvincePhoto
 END
 GO
 
