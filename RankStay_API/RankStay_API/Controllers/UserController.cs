@@ -48,5 +48,12 @@ namespace RankStay_API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetUser/{userId}")]
+        public UserObj Get(int userId)
+        {
+            return _userModel.GetUser(userId);
+        }
+
     }
 }

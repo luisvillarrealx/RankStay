@@ -11,9 +11,9 @@
                         <div class="col-sm-12">
                                 <div class="col-12">
                                 <div class="form-floating">
-                                <input type="hidden" id="UserId" name="UserId" value="@Model.UserId" />
-                                   <label asp-for="UserId" class="control-label"></label>
-                                   <input asp-for="UserId" class="form-control" disabled />  
+                                    <input type="hidden" id="UserId" name="UserId" value="@Model.UserId" />
+                                    <label asp-for="UserId" class="control-label"></label>
+                                    <input asp-for="UserId" name="userObj.UserId" class="form-control" required />
                                 </div>
                             </div>
                             <div class="col-12"> 
@@ -23,12 +23,12 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input asp-for="UserLastName1" class="form-control" name="userObj.UserLastaname1" placeholder="Nombre" id="userName" required />
+                                    <input asp-for="UserLastName1" class="form-control" name="userObj.UserLastname1" placeholder="Nombre" id="userName" required />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input asp-for="UserLastName2" class="form-control" name="userObj.UserLastaname2" placeholder="Nombre" id="userName" required />
+                                    <input asp-for="UserLastName2" class="form-control" name="userObj.UserLastname2" placeholder="Nombre" id="userName" required />
                                 </div>
                             </div>
                             <div class="form-floating">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="col-12 text-center">
-                            <button class="btn btn-primary w-100 py-3" type="submit">Agregar</button>
+                            <button class="btn btn-primary w-100 py-3" type="submit">Guardar</button>
                         </div>
                     </div>
                 </form>

@@ -14,17 +14,21 @@ namespace RankStay_Web.Controllers
             return View(await _userModel.GetListUsers());
         }
 
-        [HttpGet]
-        public IActionResult EditUser()
-        {   
-            return View();
+        [HttpGet("User/EditUser/{userId}")]
+        public async Task<IActionResult> EditUser(int userId)
+        {
+            return View(await _userModel.GetUser(userId));
         }
 
         [HttpPost]
         public ActionResult EditUser(UserObj userObj)
         {
+            userObj.UserEmail = "lnavarro";
+            userObj.UserPassword = "123";
             return _userModel.PutUser(userObj) != null
                 ? RedirectToAction("Users", "User") : View();
         }
+
+
     }
 }

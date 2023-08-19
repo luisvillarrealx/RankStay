@@ -24,6 +24,16 @@ namespace RankStay_API.Models
             }
         }
 
+
+        public UserObj GetUser(int userId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                var sqlQuery = connection.Query<UserObj>("SELECT * FROM USERS WHERE UserId = @UserId", new { UserId = userId }).ToList();
+                return sqlQuery.FirstOrDefault();
+            }
+        }
+
         public int PutUser(UserObj userObj)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))

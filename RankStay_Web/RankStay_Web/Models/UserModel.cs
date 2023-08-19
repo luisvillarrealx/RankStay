@@ -18,14 +18,26 @@ namespace RankStay_Web.Models
             }
         }
 
-        public async Task<string> PutUser(UserObj user)
+        public async Task<string> PutUser(UserObj userObj)
         {
             using (var access = new HttpClient() ) 
             {
                 string urlApi = "https://localhost:7216/api/User/PutUser";
-                JsonContent content = JsonContent.Create(user);
+                JsonContent content = JsonContent.Create(userObj);
                 HttpResponseMessage response = await access.PutAsync(urlApi, content);
                 return response.IsSuccessStatusCode ? "Ok" : string.Empty; 
+            }
+        }
+
+
+        public async Task<UserObj> GetUser(int id)
+        {
+            using (var access = new HttpClient())
+            {
+                HttpResponseMessage response = await access.GetAsync($"https://localhost:7216/api/User/GetUser/{id}");
+                string resultstr = await response.Content.ReadAsStringAsync();
+                UserObj userObj = JsonConvert.DeserializeObject <UserObj> (resultstr);
+                return userObj;
             }
         }
     }
