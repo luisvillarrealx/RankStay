@@ -30,5 +30,27 @@ namespace RankStay_API.Controllers
         {
             return _provinceModel.RegisterProvince(provinceObj) > 0 ? Ok() : BadRequest();
         }
+
+        [HttpPut]
+        [Route("UpdateProvince")]
+        public ActionResult UpdateProvince(ProvinceObj provinceObj)
+        {
+            try
+            {
+                if (provinceObj == null)
+                    return NoContent();
+
+                var result = _provinceModel.PutProvince(provinceObj);
+                if (result > 0)
+                {
+                    return Ok(provinceObj);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

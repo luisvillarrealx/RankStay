@@ -23,5 +23,30 @@ namespace RankStay_API.Controllers
         {
             return _userModel.GetListUsers();
         }
+
+
+        [HttpPut]
+        [Route("PutUser")]
+        
+        public ActionResult PutUser(UserObj user)
+        {
+            try
+            {
+                if(user == null)
+                    return NoContent();
+
+                var result = _userModel.PutUser(user);
+                if (result > 0)
+                {
+                    return Ok(user); 
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

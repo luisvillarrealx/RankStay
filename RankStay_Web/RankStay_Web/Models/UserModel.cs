@@ -17,5 +17,16 @@ namespace RankStay_Web.Models
                 return list ?? new List<UserObj>();
             }
         }
+
+        public async Task<string> PutUser(UserObj user)
+        {
+            using (var access = new HttpClient() ) 
+            {
+                string urlApi = "https://localhost:7216/api/User/PutUser";
+                JsonContent content = JsonContent.Create(user);
+                HttpResponseMessage response = await access.PutAsync(urlApi, content);
+                return response.IsSuccessStatusCode ? "Ok" : string.Empty; 
+            }
+        }
     }
 }

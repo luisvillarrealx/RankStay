@@ -41,5 +41,20 @@ namespace RankStay_API.Models
                     }, commandType: CommandType.StoredProcedure);
             }
         }
+
+        public int PutProvince(ProvinceObj provinceObj)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                return connection.Execute("SP_UpdateProvince", new
+                {
+
+                    provinceObj.ProvinceId,
+                    provinceObj.ProvinceName,
+                    provinceObj.ProvinceDescription
+                }, commandType: CommandType.StoredProcedure);
+            }
+
+        }
     }
 }

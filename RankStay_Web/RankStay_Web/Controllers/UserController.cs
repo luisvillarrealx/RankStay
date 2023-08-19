@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RankStay_Web.Entities;
 using RankStay_Web.Models;
 
 namespace RankStay_Web.Controllers
@@ -15,8 +16,15 @@ namespace RankStay_Web.Controllers
 
         [HttpGet]
         public IActionResult EditUser()
-        {
+        {   
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(UserObj userObj)
+        {
+            return _userModel.PutUser(userObj) != null
+                ? RedirectToAction("Users", "User") : View();
         }
     }
 }

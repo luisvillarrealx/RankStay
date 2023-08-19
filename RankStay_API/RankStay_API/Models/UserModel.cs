@@ -23,5 +23,21 @@ namespace RankStay_API.Models
                 return connection.Query<UserObj>("SP_GetAllUsers", commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public int PutUser(UserObj userObj)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                return connection.Execute("SP_UpdateUser", new
+                {
+                    
+                    userObj.UserId,
+                    userObj.UserRole
+                },commandType: CommandType.StoredProcedure);
+            }
+
+        }
+
+
     }
 }

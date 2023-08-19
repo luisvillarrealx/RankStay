@@ -29,5 +29,16 @@ namespace RankStay_Web.Models
                 return response.IsSuccessStatusCode ? "OK" : string.Empty;
             }
         }
+
+        public async Task<string> PutProvince(ProvinceObj provinceObj)
+        {
+            using (var access = new HttpClient())
+            {
+                string urlApi = "https://localhost:7216/api/Province/UpdateProvince";
+                JsonContent content = JsonContent.Create(provinceObj);
+                HttpResponseMessage response = await access.PutAsync(urlApi, content);
+                return response.IsSuccessStatusCode ? "Ok" : string.Empty;
+            }
+        }
     }
 }
