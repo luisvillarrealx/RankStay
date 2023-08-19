@@ -30,14 +30,11 @@
                                         <td>@item.ProvinceId</td>
                                         <td>@item.ProvinceName</td>
                                         <td>@item.ProvinceDescription</td>
-                                        <td class="text-center">>></td>
-                                        @*
                                         <td class="text-center col-1">
-                                        <a asp-action="EditUser" asp-controller="User" asp-route-ID="@item.userId" class="btn btn-primary px-2">
-                                        <i class="fas fa-angle-double-right"></i>
-                                        </a>
+                                            <a asp-action="EditProvince" asp-controller="Province" asp-route-ID="@item.ProvinceId" class="btn btn-primary px-2">
+                                                <i class="fas fa-angle-double-right"></i> Editar
+                                            </a>
                                         </td>
-                                        *@
                                     </tr>
                                 }
                             </tbody>

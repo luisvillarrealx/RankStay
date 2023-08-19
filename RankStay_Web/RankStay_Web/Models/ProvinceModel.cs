@@ -40,5 +40,17 @@ namespace RankStay_Web.Models
                 return response.IsSuccessStatusCode ? "Ok" : string.Empty;
             }
         }
+
+        public async Task<ProvinceObj> GetProvince(int id)
+        {
+            using (var access = new HttpClient())
+            {
+                HttpResponseMessage response = await access.GetAsync($"https://localhost:7216/api/Province/GetProvince/{id}");
+                string resultstr = await response.Content.ReadAsStringAsync();
+                ProvinceObj provinceObj = JsonConvert.DeserializeObject<ProvinceObj>(resultstr);
+                return provinceObj;
+            }
+        }
+
     }
 }
