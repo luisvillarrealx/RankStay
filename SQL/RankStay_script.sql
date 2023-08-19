@@ -360,3 +360,20 @@ BEGIN
     DELETE FROM [dbo].[REVIEWS] WHERE ReviewId = @ReviewId;
 END
 GO
+
+CREATE OR ALTER PROCEDURE [dbo].[SP_UpdateUser] 
+@UserId INT,
+@UserRole INT
+AS 
+UPDATE USERS SET UserRole = @UserRole 
+WHERE UserId = @UserId; 
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[SP_UpdateProvince] 
+@ProvinceId INT,
+@ProvinceName VARCHAR(30), 
+@ProvinceDescription VARCHAR(200)
+AS 
+UPDATE PROVINCES SET ProvinceName = @ProvinceName, ProvinceDescription = @ProvinceDescription
+WHERE ProvinceId = @ProvinceId; 
+GO
