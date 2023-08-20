@@ -54,6 +54,5 @@ namespace RankStay_API.Controllers
         {
             return _userModel.GetUser(userId);
         }
-
     }
 }

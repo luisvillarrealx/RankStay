@@ -1,6 +1,5 @@
 ﻿@model RankStay_Web.Entities.ReviewObj
 
-<!-- Register Review Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -10,8 +9,16 @@
                     <div class="row g-3">
                         <div class="col-sm-12">
                             <div class="form-floating">
-                                <input asp-for="ReviewPropertyId" type="number" class="form-control" name="reviewPropertyId" placeholder="Propiedad" required />
-                                <label for="reviewPropertyId">Propiedad</label>
+                                <select asp-for="ReviewPropertyId" class="form-control" name="reviewObj.ReviewPropertyId" id="property" required>
+                                    <option value="1">Residencial San José</option>
+                                    <option value="2">Bosques de San José</option>
+                                    <option value="3">Casas San José</option>
+                                    <option value="4">Apartamentos Chepe</option>
+                                    <option value="5">Residencial Alajuela</option>
+                                    <option value="6">Bosques de Alajuela</option>
+                                    <option value="7">Casas Alajuela</option>
+                                </select>
+                                <label asp-for="ReviewPropertyId">Selecciona una propiedad</label>
                             </div>
                         </div>
                         <div class="col-12">
@@ -36,4 +43,3 @@
         </div>
     </div>
 </div>
-<!-- Register Review Start -->

@@ -38,9 +38,9 @@ namespace RankStay_Web.Controllers
         [HttpPost]
         public ActionResult EditProvince(ProvinceObj provinceObj)
         {
-            provinceObj.ProvinceId = 0;
-            provinceObj.ProvinceName = "Alajuela";
-            provinceObj.ProvinceDescription = "Conocida por sus hermosos paisajes y el Aeropuerto Internacional Juan Santamaría.";
+            provinceObj.PropertyCount = 2;
+            provinceObj.ProvinceName = "Name";
+            provinceObj.ProvincePhoto = "lorem.pgn";
             return _provinceModel.PutProvince(provinceObj) != null
                 ? RedirectToAction("Provinces","Province"): View();
         }

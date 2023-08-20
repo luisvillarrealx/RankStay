@@ -48,13 +48,21 @@ namespace RankStay_API.Models
             {
                 return connection.Execute("SP_UpdateProvince", new
                 {
-
                     provinceObj.ProvinceId,
                     provinceObj.ProvinceName,
                     provinceObj.ProvinceDescription
                 }, commandType: CommandType.StoredProcedure);
             }
 
+        }
+
+        public ProvinceObj GetProvince(int provinceId)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                var sqlQuery = connection.Query<ProvinceObj>("SELECT * FROM PROVINCES WHERE ProvinceId = @ProvinceId ", new { ProvinceId = provinceId }).ToList();
+                return sqlQuery.FirstOrDefault();
+            }
         }
     }
 }

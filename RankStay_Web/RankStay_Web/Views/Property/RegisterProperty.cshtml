@@ -1,6 +1,5 @@
 ﻿@model RankStay_Web.Entities.PropertyObj
 
-<!-- Register Property Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -10,9 +9,7 @@
                     <div class="row g-3">
                         <div class="col-sm-12">
                             <div class="form-floating">
-                                <label asp-for="PropertyProvinceId">Selecciona una provincia</label>
                                 <select asp-for="PropertyProvinceId" class="form-control" name="propertyObj.PropertyProvinceId" id="province" required>
-                                    <option value="">Seleccione una provincia</option>
                                     <option value="1">San José</option>
                                     <option value="2">Alajuela</option>
                                     <option value="3">Cartago</option>
@@ -21,12 +18,13 @@
                                     <option value="6">Puntarenas</option>
                                     <option value="7">Limón</option>
                                 </select>
+                                <label asp-for="PropertyProvinceId">Selecciona una provincia</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <label asp-for="PropertyName">Nombre de la propiedad</label>
                                 <input asp-for="PropertyName" class="form-control" name="propertyObj.PropertyName" placeholder="Nombre de la propiedad" id="property" required />
+                                <label asp-for="PropertyName">Nombre de la propiedad</label>
                             </div>
                         </div>
                         <div class="col-12 text-center">
@@ -34,9 +32,7 @@
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
 </div>
-<!-- Register Property Start -->

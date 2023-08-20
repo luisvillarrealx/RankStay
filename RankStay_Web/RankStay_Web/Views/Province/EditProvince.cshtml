@@ -9,22 +9,19 @@
                 <form method="post" asp-action="EditProvince" asp-controller="Province" class="form-box px-3">
                     <div class="row g-3">
                         <div class="col-sm-12">
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="hidden" id="ProvinceId" name="ProvinceId" value="@Model.ProvinceId" />
-                                    <label asp-for="ProvinceId" class="control-label"></label>
-                                    <input asp-for="ProvinceId" name="provinceObj.ProvinceId" class="form-control" required />
-                                </div>
+                            <div class="form-floating">
+                                <input type="hidden" id="ProvinceId" name="ProvinceId" value="@Model.ProvinceId" />
+                                <input asp-for="ProvinceId" name="provinceObj.ProvinceId" class="form-control" required />
                             </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input asp-for="ProvinceName" class="form-control" name="provinceObj.ProvinceName" placeholder="Nombre" id="ProvinceName" required />
-                                </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input asp-for="ProvinceName" class="form-control" name="provinceObj.ProvinceName" placeholder="Nombre" id="ProvinceName" required />
                             </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input asp-for="ProvinceDescription" class="form-control" name="provinceObj.ProvinceDescription" placeholder="Descripción" id="ProvinceDescription" required />
-                                </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input asp-for="ProvinceDescription" class="form-control" name="provinceObj.ProvinceDescription" placeholder="Descripción" id="ProvinceDescription" required />
                             </div>
                         </div>
                         <div class="col-12 text-center">

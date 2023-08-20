@@ -52,5 +52,12 @@ namespace RankStay_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet]
+        [Route("GetProvince/{provinceId}")]
+        public ProvinceObj Get(int provinceId)
+        {
+            return _provinceModel.GetProvince(provinceId);
+        }
     }
 }

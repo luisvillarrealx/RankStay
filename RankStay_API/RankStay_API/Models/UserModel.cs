@@ -24,6 +24,18 @@ namespace RankStay_API.Models
             }
         }
 
+        public int PutUser(UserObj userObj)
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
+            {
+                return connection.Execute("SP_UpdateUser", new
+                {
+                    userObj.UserId,
+                    userObj.UserRole
+                },commandType: CommandType.StoredProcedure);
+            }
+
+        }
 
         public UserObj GetUser(int userId)
         {
@@ -33,21 +45,5 @@ namespace RankStay_API.Models
                 return sqlQuery.FirstOrDefault();
             }
         }
-
-        public int PutUser(UserObj userObj)
-        {
-            using (var connection = new SqlConnection(_configuration.GetConnectionString("Connection")))
-            {
-                return connection.Execute("SP_UpdateUser", new
-                {
-                    
-                    userObj.UserId,
-                    userObj.UserRole
-                },commandType: CommandType.StoredProcedure);
-            }
-
-        }
-
-
     }
 }

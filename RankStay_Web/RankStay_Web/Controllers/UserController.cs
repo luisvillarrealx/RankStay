@@ -23,8 +23,8 @@ namespace RankStay_Web.Controllers
         [HttpPost]
         public ActionResult EditUser(UserObj userObj)
         {
-            userObj.UserEmail = "lnavarro";
-            userObj.UserPassword = "123";
+            userObj.UserEmail = "email";
+            userObj.UserPassword = "$yS9kw";
             return _userModel.PutUser(userObj) != null
                 ? RedirectToAction("Users", "User") : View();
         }
