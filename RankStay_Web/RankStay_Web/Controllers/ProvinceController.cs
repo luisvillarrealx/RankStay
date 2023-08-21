@@ -39,7 +39,6 @@ namespace RankStay_Web.Controllers
         public ActionResult EditProvince(ProvinceObj provinceObj)
         {
             provinceObj.PropertyCount = 2;
-            provinceObj.ProvinceName = "Name";
             provinceObj.ProvincePhoto = "lorem.pgn";
             return _provinceModel.PutProvince(provinceObj) != null
                 ? RedirectToAction("Provinces","Province"): View();

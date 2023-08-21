@@ -1,4 +1,4 @@
-# RankSaty - Apartments 🏠
+# RankStay - Apartments 🏠
 
 <img src="README/rankstay.png" align="right" height="55px" />
 
